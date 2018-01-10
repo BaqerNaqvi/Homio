@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewBag.Title = "Add New Doctor";
+}
+@model HmsServices.Models.AppUserDoc
+<style>
+    .mian-container-opdp {
+        margin-top: 50px !important;
+    }
+</style>
+@{
+    var items = new List<SelectListItem>();
+    items.Add(new SelectListItem { Text = "Mr.", Value = "Mr." , Selected = Model.Title== "Mr." });
+    items.Add(new SelectListItem { Text = "Dr.", Value = "Dr.", Selected = Model.Title == "Dr." });
+    items.Add(new SelectListItem { Text = "Ms.", Value = "Ms.", Selected = Model.Title == "Ms." });
+    items.Add(new SelectListItem { Text = "Mrs.", Value = "Mrs.", Selected = Model.Title == "Mrs." });
+    items.Add(new SelectListItem { Text = "Madam", Value = "Madam", Selected = Model.Title == "Madam" });
+    items.Add(new SelectListItem { Text = "Professor Dr.", Value = "Professor Dr.", Selected = Model.Title == "Professor Dr." });
+    items.Add(new SelectListItem { Text = "Associate Prof Dr.", Value = "Associate Prof Dr.", Selected = Model.Title == "Associate Prof Dr." });
+    items.Add(new SelectListItem { Text = "Assistant Professor Dr.", Value = "Assistant Professor Dr.", Selected = Model.Title == "Assistant Professor Dr." });
+    items.Add(new SelectListItem { Text = "Other", Value = "Other", Selected = Model.Title == "Other" });
+
+    var degree = new List<SelectListItem>();
+    degree.Add(new SelectListItem { Text = "General Surgeon", Value = "General Surgeon" });
+    degree.Add(new SelectListItem { Text = "Medicine", Value = "Medicine" });
+    degree.Add(new SelectListItem { Text = "Gyanae", Value = "Gyanae" });
+    degree.Add(new SelectListItem { Text = "Urology", Value = "Urology" });
+    degree.Add(new SelectListItem { Text = "Other", Value = "Other" });
+
+    var shiftDays = new List<SelectListItem>();
+    shiftDays.Add(new SelectListItem { Text = "Friday", Value = "Friday" });
+    shiftDays.Add(new SelectListItem { Text = "Saturday", Value = "Saturday" });
+    shiftDays.Add(new SelectListItem { Text = "Sunday", Value = "Sunday" });
+    shiftDays.Add(new SelectListItem { Text = "Monday", Value = "Monday" });
+    shiftDays.Add(new SelectListItem { Text = "Tuesday", Value = "Tuesday" });
+    shiftDays.Add(new SelectListItem { Text = "Wednesday", Value = "Wednesday" });
+    shiftDays.Add(new SelectListItem { Text = "Thrusday", Value = "Thrusday" });
+
+}
+<nav class="navbar navbar-transparent navbar-absolute">
+    <div class="container-fluid" style="margin-left: 12px;">
+        <div class="navbar-header">
+            <button id="backToDocsList" type="submit" class="btn btn-primary pull-right">Back<div class="ripple-container"></div></button>
+        </div>
+    </div>
+</nav>
+<div class="content mian-container-opdp">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                        <h4 class="title">Doctors</h4>
+                        <p class="category">Add New Doctor</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Title</label>
+                                    @Html.DropDownListFor(m => m.Title, items, new { @class = "form-control docField", id = "title" })
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">First Name</label>
+                                    <input value="@Model.FirstName" type="text" id="fname" class="form-control docField">
+                                    <input type="hidden" value="@Model.Id" id="docId"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Last Name</label>
+                                    <input value="@Model.LastName" type="text" id="lname" class="form-control docField">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">PMDC No.</label>
+                                    <input value="@Model.PMDCNo" type="text" id="PMDCNo" class="form-control docField">
+
+                                </div>
+                            </div>
+                        </div>
+                        @{
+                            var disableEmail = "disabled";
+                            if (string.IsNullOrEmpty(Model.Id))
+                            {
+                                disableEmail = "";
+                            }
+                        }
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Email</label>
+                                    <input type="email" id="email" class="form-control docField" value="@Model.Email">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Fee</label>
+                                    <input type="text" id="fee"class="form-control docField" value="@Model.Fee">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Specialization </label>
+                                    @Html.DropDownListFor(m => m.Degree, degree, new {@class = "form-control docField", id = "degree"})
+
+                                </div>
+                            </div>
+                            @{
+                                var shiftHours = new List<SelectListItem>();
+                                shiftHours.Add(new SelectListItem { Text = "1 AM", Value = "1" });
+                                shiftHours.Add(new SelectListItem { Text = "2 AM", Value = "2" });
+                                shiftHours.Add(new SelectListItem { Text = "3 AM", Value = "3" });
+                                shiftHours.Add(new SelectListItem { Text = "4 AM", Value = "4" });
+                                shiftHours.Add(new SelectListItem { Text = "5 AM", Value = "5" });
+                                shiftHours.Add(new SelectListItem { Text = "6 AM", Value = "6" });
+                                shiftHours.Add(new SelectListItem { Text = "7 AM", Value = "7" });
+                                shiftHours.Add(new SelectListItem { Text = "8 AM", Value = "8" });
+                                shiftHours.Add(new SelectListItem { Text = "9 AM", Value = "9" });
+                                shiftHours.Add(new SelectListItem { Text = "10 AM", Value = "10"});
+                                shiftHours.Add(new SelectListItem { Text = "11 AM", Value = "11", Selected = true });
+                                shiftHours.Add(new SelectListItem { Text = "12 PM", Value = "12" });
+
+                                shiftHours.Add(new SelectListItem { Text = "1 PM", Value = "13" });
+                                shiftHours.Add(new SelectListItem { Text = "2 PM", Value = "14" });
+                                shiftHours.Add(new SelectListItem { Text = "3 PM", Value = "15" });
+                                shiftHours.Add(new SelectListItem { Text = "4 PM", Value = "16" });
+                                shiftHours.Add(new SelectListItem { Text = "5 PM", Value = "17" });
+                                shiftHours.Add(new SelectListItem { Text = "6 PM", Value = "18" });
+                                shiftHours.Add(new SelectListItem { Text = "7 PM", Value = "19" });
+                                shiftHours.Add(new SelectListItem { Text = "8 PM", Value = "20" });
+                                shiftHours.Add(new SelectListItem { Text = "9 PM", Value = "21" });
+                                shiftHours.Add(new SelectListItem { Text = "10 PM", Value = "22" });
+                                shiftHours.Add(new SelectListItem { Text = "11 PM", Value = "23" });
+                                shiftHours.Add(new SelectListItem { Text = "12 AM", Value = "24" });
+                            }
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Shift From</label>
+                                    @Html.DropDownListFor(m => m.ShiftFrom, shiftHours, new {@class = "form-control", id = "shiftHoursFrom" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Shift To</label>
+                                    @Html.DropDownListFor(m => m.ShifTo, shiftHours, new { @class = "form-control", id = "shiftHoursTo" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Shift Days</label>
+                                    @Html.DropDownListFor(m => m.ShiftDays, shiftDays, new { id = "docs-days", @class = "form-control", multiple = "multiple" })
+                                </div>
+                                </div>
+                        </div>
+
+                        <button id="addNewDoc" class="btn btn-primary pull-right">Save</button>
+                        <img src="~/Images/loading.gif" class="pull-right loading-docs displayNone" />
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/hmsDocsJs")
+<script>
+    var selectedDays = @Html.Raw(Json.Encode(Model.ShiftDays));
+    
+</script>

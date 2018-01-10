@@ -1,0 +1,93 @@
+﻿@model List<HmsServices.Models.AppUserDoc>
+@{
+    ViewBag.Title = "Doctors";
+}
+<nav class="navbar navbar-transparent navbar-absolute">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle toggled" data-toggle="collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"> Doctors List <div class="ripple-container"></div></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group is-empty">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <span class="material-input"></span>
+                    <span class="material-input"></span>
+                </div>
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="content content-opdplsitview">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                        <h4 class="title">Doctors Data</h4>
+                        @*<p class="category">Patients OPD Data</p>*@
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-primary">
+                            <tr>
+                                <th>PMDC No.</th>
+                                <th>Full Name</th>
+                                <th>Degree</th>
+                                <th>Fee</th>
+                                <th>Active</th>
+                                <th>Joining Date</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @{
+                                if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var status = item.Status ? "checked" : "";
+                                        <tr>
+                                            <td style="display: none">@item.Id</td>
+                                            <td>@item.PMDCNo</td>
+                                            <td>@item.Title @item.FirstName&nbsp;@item.LastName</td>
+                                            <td>@item.Degree</td>
+                                            <td>@item.Fee </td>
+                                            <td>
+                                                <div class="checkbox ">
+                                                    <label>
+                                                        <input class="docStatus" id="doc_check_@item.Id" type="checkbox" @status>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>@item.CreationDateTime</td>
+                                            <td title="Edit" class="cursorPointer editDoc" id="editDoc_@item.Id"><i class="material-icons">edit</i></td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button id="createNewDocBtn" type="submit" class="btn btn-primary pull-right">
+                    Add New
+                    <div class="ripple-container"></div>
+                </button>
+                <img src="~/Images/loading.gif" class="pull-right loading-docs displayNone" />
+
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/hmsDocsJs")

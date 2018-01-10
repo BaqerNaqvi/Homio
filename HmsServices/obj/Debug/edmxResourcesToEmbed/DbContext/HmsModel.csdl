@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HMSDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="HMSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AspNetRoles" EntityType="HMSDbModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="HMSDbModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="HMSDbModel.AspNetUserLogin" />
+    <EntitySet Name="OPDs" EntityType="HMSDbModel.OPD" />
+    <EntitySet Name="AspNetUsers" EntityType="HMSDbModel.AspNetUser" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HMSDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="HMSDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPD_OPD" Association="HMSDbModel.FK_OPD_OPD">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="OPD" EntitySet="OPDs" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="HMSDbModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="WardsRooms" EntityType="HMSDbModel.WardsRoom" />
+    <EntitySet Name="IpForms" EntityType="HMSDbModel.IpForm" />
+    <AssociationSet Name="FK_IpForm_AspNetUsers" Association="HMSDbModel.FK_IpForm_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="IpForm" EntitySet="IpForms" />
+    </AssociationSet>
+    <EntitySet Name="Lab_Mapping" EntityType="HMSDbModel.Lab_Mapping" />
+    <EntitySet Name="Lab_Parms" EntityType="HMSDbModel.Lab_Parms" />
+    <EntitySet Name="Lab_Tests" EntityType="HMSDbModel.Lab_Tests" />
+    <AssociationSet Name="FK_Lab_Mapping_Lab_Parms" Association="HMSDbModel.FK_Lab_Mapping_Lab_Parms">
+      <End Role="Lab_Parms" EntitySet="Lab_Parms" />
+      <End Role="Lab_Mapping" EntitySet="Lab_Mapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lab_Mapping_Lab_Tests" Association="HMSDbModel.FK_Lab_Mapping_Lab_Tests">
+      <End Role="Lab_Tests" EntitySet="Lab_Tests" />
+      <End Role="Lab_Mapping" EntitySet="Lab_Mapping" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="HMSDbModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="HMSDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="HMSDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="OPD">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DailyNo" Type="Int64" Nullable="false" />
+    <Property Name="PatientNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="GuardianName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <Property Name="CNIC" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="VisitNo" Type="Int32" />
+    <Property Name="DoctorId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="MartialStatus" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Doctor" Relationship="HMSDbModel.FK_OPD_OPD" FromRole="OPD" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Fee" Type="Int32" Nullable="false" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastEditDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Degree" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ShiftFrom" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ShiftToo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ShiftDays" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="HMSDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="HMSDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="OPDs" Relationship="HMSDbModel.FK_OPD_OPD" FromRole="AspNetUser" ToRole="OPD" />
+    <NavigationProperty Name="AspNetRoles" Relationship="HMSDbModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <NavigationProperty Name="IpForms" Relationship="HMSDbModel.FK_IpForm_AspNetUsers" FromRole="AspNetUser" ToRole="IpForm" />
+    <Property Name="PMDCNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HMSDbModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HMSDbModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPD_OPD">
+    <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="HMSDbModel.OPD" Role="OPD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OPD">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="HMSDbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityType Name="WardsRoom">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Parent" Type="Int64" />
+    <Property Name="Created" Type="DateTime" Precision="3" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Booked" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IpForm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="GuardianName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <Property Name="CNIC" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DoctorId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="MartialStatus" Type="Boolean" Nullable="false" />
+    <Property Name="AdvanceAmount" Type="Int32" Nullable="false" />
+    <Property Name="Caste" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="BloodGroup" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="OpdId" Type="Int64" />
+    <NavigationProperty Name="Doctor" Relationship="HMSDbModel.FK_IpForm_AspNetUsers" FromRole="IpForm" ToRole="AspNetUser" />
+    <Property Name="AdmissionFee" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_IpForm_AspNetUsers">
+    <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="HMSDbModel.IpForm" Role="IpForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IpForm">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Lab_Mapping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParmId" Type="Int64" Nullable="false" />
+    <Property Name="TestId" Type="Int64" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Lab_Parms" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Parms" FromRole="Lab_Mapping" ToRole="Lab_Parms" />
+    <NavigationProperty Name="Lab_Tests" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Tests" FromRole="Lab_Mapping" ToRole="Lab_Tests" />
+  </EntityType>
+  <EntityType Name="Lab_Parms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Unit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NormarVal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Lab_Mapping" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Parms" FromRole="Lab_Parms" ToRole="Lab_Mapping" />
+  </EntityType>
+  <EntityType Name="Lab_Tests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Fee" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Interval" Type="Int32" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Lab_Mapping" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Tests" FromRole="Lab_Tests" ToRole="Lab_Mapping" />
+  </EntityType>
+  <Association Name="FK_Lab_Mapping_Lab_Parms">
+    <End Type="HMSDbModel.Lab_Parms" Role="Lab_Parms" Multiplicity="1" />
+    <End Type="HMSDbModel.Lab_Mapping" Role="Lab_Mapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lab_Parms">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lab_Mapping">
+        <PropertyRef Name="ParmId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lab_Mapping_Lab_Tests">
+    <End Type="HMSDbModel.Lab_Tests" Role="Lab_Tests" Multiplicity="1" />
+    <End Type="HMSDbModel.Lab_Mapping" Role="Lab_Mapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lab_Tests">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lab_Mapping">
+        <PropertyRef Name="TestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

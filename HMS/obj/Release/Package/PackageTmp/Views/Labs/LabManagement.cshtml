@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "Labs Management";
+}
+@Styles.Render("~/Content/LabMgmtCss")
+
+
+@model HmsServices.Models.LabTestMgmtResponseModel
+<nav class="navbar navbar-transparent navbar-absolute">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle toggled" data-toggle="collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"> Lab Tests List View <div class="ripple-container"></div></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group is-empty">
+                    <input type="text" class="form-control" placeholder="Search" id="searchField">
+                    <span class="material-input"></span>
+                    <span class="material-input"></span>
+                </div>
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="content content-opdplsitview">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                        <h4 class="title">Lab Test Data</h4>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-primary">
+                            <tr>
+                                <th>Test No.</th>
+                                <th>Name</th>
+                                <th>Fee</th>
+                                <th>Status</th>
+
+                                <th></th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                            @{
+                                if (Model != null && Model.LabTest.Any())
+                                {
+                                    foreach (var item in Model.LabTest)
+                                    {
+                                        var status = item.Status ? "checked" : "";
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Fee</td>
+                                            <td>
+                                                <div class="checkbox ">
+                                                    <label>
+                                                        <input class="labtestStatus" id="lab_check_@item.Id" type="checkbox" @status>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td title="Edit" class="cursorPointer editlab" id="editLab_@item.Id"><i class="material-icons">edit</i></td>
+
+                                        </tr>
+                                    }
+                                }
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="paggingDiv" style="margin-left: 20px;"></div>
+
+                </div>
+                <button id="createNewSlipBtn" type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
+                    Add New Test
+                    <div class="ripple-container"></div>
+                </button>
+                <img src="~/Images/loading.gif" class="pull-right loading-docs displayNone"/>
+
+            </div>
+        </div>
+    </div>
+   
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Lab</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="labname" class="form-control-label">Name</label>
+                            <input type="text" class="form-control labcls" id="labname">
+                        </div>
+                        <div class="form-group">
+                            <label for="labfee" class="form-control-label">Fee</label>
+                            <input type="text" class="form-control labcls" id="labfee">
+                        </div>
+                        <div class="form-group">
+                            <label for="labInterval" class="form-control-label">Sample to Examination Interval (in minutes)</label>
+                            <input type="number" value="30"class="form-control labcls" id="labInterval" >
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addlab">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/LabMgmtJs")
+<script>
+    var pagging= @Html.Raw(Json.Encode(Model.Pagging));
+    $("#paggingDiv").pagination({
+        items: pagging.TotalItems,
+        itemsOnPage: pagging.ItemPerPage,
+        cssStyle: 'compact-theme',
+        onPageClick: function(pageNumber,event) {
+            pagging.Current = (--pageNumber);
+            getLabTest();
+        }
+    });
+</script>

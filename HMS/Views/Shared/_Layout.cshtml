@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Saqib Bashir Poly Clinic - Plexus</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS -->
+
+
+
+    @Styles.Render("~/Content/LayoutCss")
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+
+    <!--     Fonts and icons     -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" data-image="/Images/sidebar-1.jpg">
+        <div class="logo">
+            <a href="~/home/index" class="simple-text">
+                Saqib Bashir General 
+            </a>
+            <a href="~/home/index" class="simple-text">
+                Hospital
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li id="opdForms">
+                    <a href="~/Home/Index">
+                        <i class="material-icons">list</i>
+                        <p>OPD FORMS</p>
+                    </a>
+                </li>
+                <li id="ipForms">
+                    <a href="~/IPForms/IpFormsList">
+                        <i class="material-icons">list</i>
+                        <p>IP FORMS</p>
+                    </a>
+                </li>
+                <li id="docsList">
+                    <a href="~/Doctor/ListOfDocs">
+                        <i class="material-icons">supervisor_account
+                        </i>
+                        <p>Doctors</p>
+                    </a>
+                </li>
+                <li id="labMgmtList">
+                    <a href="~/Labs/LabManagement">
+                        <i class="material-icons">
+                            invert_colors
+                        </i>
+                        <p>Lab Management</p>
+                    </a>
+                </li>
+
+                <li id="docsList">
+                    <a href="~/account/logoff">
+                        <i class="material-icons">
+                            exit_to_app
+                        </i>
+                        <p>Log out</p>
+                    </a>
+                </li>
+               
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        @RenderBody()
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    <a>Plexus</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</div>
+    @Scripts.Render("~/bundles/layoutScript")
+</body>
+</html>

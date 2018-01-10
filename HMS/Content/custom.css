@@ -1,0 +1,25 @@
+﻿.opdFormheading {
+    background-color: rgba(151, 47, 176, 0.25);
+    border-radius: 5px;
+    border: 1px solid #942bae;
+}
+
+ .modal-header {
+            background-color: #cacaca8f;
+          padding-bottom: 10px !important;
+    padding-top: 16px !important;
+    color: black;
+        }
+        #exampleModalLabel {
+            display: -webkit-inline-box;
+}
+        .modal-body .form-group {
+            margin: 0px;
+        }
+
+     .modal-body   .form-control {
+    height: 18px;
+}
+     .modal-body label {
+         color: black
+     }

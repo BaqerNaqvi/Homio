@@ -1,0 +1,87 @@
+﻿@using HMS.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Plexus</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+    @Styles.Render("~/Content/loginCss")
+
+</head>
+
+<body>
+
+    <!-- Mixins-->
+    <!-- Pen Title-->
+    <div class="pen-title" style="padding-bottom: 12px;">
+        <span>HMS <i class='fa fa-code'></i> by <a>Plexus</a></span>
+    </div>
+<div class="container">
+    <div class="card"></div>
+    <div class="card">
+        <h1 class="title">Login</h1>
+        <div class="input-container">
+            <input type="#{type}" id="username" required="required"/>
+            <label for="username">Email</label>
+            <div class="bar"></div>
+        </div>
+        <div class="input-container">
+            <input type="password" id="password" required="required"/>
+            <label for="password">Password</label>
+            <div class="bar"></div>
+        </div>
+        <div class="button-container">
+            <button id="loginBtn"><span>Login</span></button>
+        </div>
+        <a></a>
+        <img src="~/Images/loading.gif" class="loading-wheel"/>
+
+        @*<div class="footer">
+                <a id="messageDiv" href="#" style="color: red;">
+
+                </a>
+            </div>*@
+    </div>
+    <div class="pen-title" style="padding-bottom: 12px;">
+        <span>Forgot password?<a href="~/Account/forgotPassword"> Reset</a></span>
+    </div>
+    <div class="card alt">
+        <div class="toggle"></div>
+        <h1 class="title">
+            Register
+            <div class="close"></div>
+        </h1>
+        <div class="input-container">
+            <input type="#{type}" id="#{label}" required="required"/>
+            <label for="#{label}">Username</label>
+            <div class="bar"></div>
+        </div>
+        <div class="input-container">
+            <input type="#{type}" id="#{label}" required="required"/>
+            <label for="#{label}">Password</label>
+            <div class="bar"></div>
+        </div>
+        <div class="input-container">
+            <input type="#{type}" id="#{label}" required="required"/>
+            <label for="#{label}">Repeat Password</label>
+            <div class="bar"></div>
+        </div>
+        <div class="button-container">
+            <button><span>Next</span></button>
+        </div>
+    </div>
+</div>
+ 
+    @Scripts.Render("~/bundles/loginScript")
+</body>
+</html>

@@ -1,0 +1,10 @@
+D:\Work\Projects\HMS\HmsServices\bin\Debug\HmsServices.dll.config
+D:\Work\Projects\HMS\HmsServices\bin\Debug\HmsServices.dll
+D:\Work\Projects\HMS\HmsServices\bin\Debug\HmsServices.pdb
+D:\Work\Projects\HMS\HmsServices\bin\Debug\EntityFramework.dll
+D:\Work\Projects\HMS\HmsServices\bin\Debug\EntityFramework.SqlServer.dll
+D:\Work\Projects\HMS\HmsServices\bin\Debug\EntityFramework.xml
+D:\Work\Projects\HMS\HmsServices\bin\Debug\EntityFramework.SqlServer.xml
+D:\Work\Projects\HMS\HmsServices\obj\Debug\HmsServices.dll
+D:\Work\Projects\HMS\HmsServices\obj\Debug\HmsServices.pdb
+D:\Work\Projects\HMS\HmsServices\obj\Debug\HmsServices.csprojResolveAssemblyReference.cache

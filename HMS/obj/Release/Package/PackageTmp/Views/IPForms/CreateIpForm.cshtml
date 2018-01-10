@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "OPDP Forms";
+}
+@using HmsServices.Models
+@model HMS.Models.IpPageModel
+
+
+<style>
+    .mian-container-opdp {
+        margin-top: 50px !important;
+    }
+</style>
+<nav class="navbar navbar-transparent navbar-absolute">
+    <div class="container-fluid" style="margin-left: 12px;">
+        <div class="navbar-header">
+            <button id="backToIpList" type="submit" class="btn btn-primary pull-right">Back<div class="ripple-container"></div></button>
+        </div>
+    </div>
+</nav>
+<div class="content mian-container-opdp">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                        <h4 class="title">In-Patient SLIP</h4>
+                        <p class="category">Complete The follow form</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="row opdFormheading">
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">MR No.</label>
+                                    <input id="patId" type="text" value="@Model.GeneralData.PatientNo" class="form-control other-cons" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Date & Time</label>
+                                    <input id="dateTime" type="text" class="form-control other-cons" value="@Model.GeneralData.DateTime" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">IP Serial No.</label>
+                                    <input id="serialNo" type="text" class="form-control other-cons" value="@Model.GeneralData.SerialNo" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Monthly IP. No.</label>
+                                    <input id="monthlyptid" type="text" class="form-control other-cons" value="@Model.GeneralData.MonthlyNo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Ward/Room</label>
+                                    <select id="wardDd" class="form-control">
+                                        @{
+                                            <option value="0">Select Ward/Room</option>
+                                            if (Model != null && Model.WardsList != null)
+                                            {
+                                                foreach (var ward in Model.WardsList.Where( w => w.Parent==null).ToList())
+                                                {
+                                                    <option value="@ward.Id">@ward.Name</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Bed</label>
+                                    <select id="roomDd" class="form-control"><option value="0">Select Bed</option></select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Doctor</label>
+                                    <select id="docDd" class="form-control">
+                                        @{
+                                            <option data-fee="" value="0">Select Doctor</option>
+                                            if (Model != null && Model.DoctorList != null)
+                                            {
+                                                foreach (var doc in Model.DoctorList)
+                                                {
+                                                    <option data-fee="@doc.Fee" value="@doc.Id">@doc.Name</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Advance Amount</label>
+                                    <input id="advAmount" type="text" value="@Model.GeneralData.AdvanceAmount" class="form-control numOnly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Full Name</label>
+                                    <input id="fullname" type="text" value="@Model.GeneralData.Name" class="form-control opdRequired">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">S/O, W/O, D/O</label>
+                                    <input id="gname" type="text" value="@Model.GeneralData.GuardianName" class="form-control opdRequired">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Age</label>
+                                    <input id="age" type="text" value="@Model.GeneralData.Age" class="form-control opdRequired numOnly">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Gender</label>
+                                    <select id="gender" class="form-control">
+                                        <option selected="" value="1">Male</option>
+                                        <option value="0">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">CNIC No.</label>
+                                    <input id="cnicNo" type="text" value="@Model.GeneralData.CNIC" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Admission Fee</label>
+                                    <input id="adminFee" type="text" value="@Model.GeneralData.AdmissionFee" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Address</label>
+                                    <input id="address" type="text" value="@Model.GeneralData.Address" class="form-control opdRequired">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Phone No.</label>
+                                    <input id="phNo" type="text" value="@Model.GeneralData.Phone" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Martial Status</label>
+                                    <select id="mstatus" class="form-control">
+                                        <option value="1">Married</option>
+                                        <option value="0">Unmarried</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Caste</label>
+                                    <input id="caste" type="text" value="@Model.GeneralData.Caste" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Blood Group</label>
+                                    <select id="BloodGroupDd" class="form-control">
+                                        <option value="A+">A+</option>
+                                        <option value="O+">O+</option>
+
+                                        <option value="B+" >B+</option>
+                                        <option value="AB+">AB+</option>
+
+                                        <option value="A-">A-</option>
+                                        <option value="O-">O-</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB-" selected="">AB-</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                      
+                            <button type="submit" class="btn btn-primary pull-right" id="createNewIpFormBtn">Create</button>
+                            <button type="submit" class="btn btn-default pull-right" id="clearOpdFormBtn">Clear</button>
+
+                            <img src="~/Images/loading.gif" class="pull-right loading-docs displayNone"/>
+
+                            <div class="clearfix"></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/ipFormsAddViewJs")
+<script>
+    var allWards = @Html.Raw(Json.Encode(Model.WardsList));
+    var bGroup = @Html.Raw(Json.Encode(Model.GeneralData.BloodGroup));
+    var mStatus = @Html.Raw(Json.Encode(Model.GeneralData.MartialStatus));
+    var gen = @Html.Raw(Json.Encode(Model.GeneralData.Gender));
+    var opId = @Html.Raw(Json.Encode(Model.GeneralData.OpdId));
+</script>
