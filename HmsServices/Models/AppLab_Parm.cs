@@ -19,6 +19,13 @@ namespace HmsServices.Models
 
     }
 
+    public class AppLab_ParmDd
+    {
+        public long id { get; set; }
+        public string Name { get; set; }
+
+    }
+
     public static class LabParmMapper
     {
         public static AppLab_Parm Mapper(this Lab_Parms source)
@@ -36,6 +43,15 @@ namespace HmsServices.Models
               NormarVal = source.NormarVal,
               Unit = source.Unit,
               Lab_Mappings = mapping
+            };
+        }
+
+        public static AppLab_ParmDd MapperDd(this Lab_Parms source)
+        {
+            return new AppLab_ParmDd
+            {
+                id = source.Id,
+                Name = source.Name,
             };
         }
     }

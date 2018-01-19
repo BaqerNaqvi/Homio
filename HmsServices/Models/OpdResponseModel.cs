@@ -24,4 +24,21 @@ namespace HmsServices.Models
         public List<AppLab_Test> LabTest { get; set; }
         public PaggingModel Pagging { get; set; }
     }
+
+    public class LabParmsResponseModel
+    {
+        public List<AppLab_Parm> LabParms { get; set; }
+        public PaggingModel Pagging { get; set; }
+    }
+
+    public class LabParmsResponseModelDd
+    {
+        public List<AppLab_ParmDd> LabParms { get; set; }
+    }
+
+    public class LabMappingResponseModel
+    {
+        public string TestName { get; set; }
+        public List<AppLab_mapping> LabMapping { get; set; }
+    }
 }

@@ -16,6 +16,9 @@ namespace HmsServices.Models
 
         public  AppLab_Parm Lab_Parm { get; set; }
         public  AppLab_Test Lab_Test { get; set; }
+
+        public string TestName { get; set; }
+        public string ParmName { get; set; }
     }
 
     public static class LabMappingMapper
@@ -29,7 +32,9 @@ namespace HmsServices.Models
            //   Lab_Parm = source.Lab_Parms.Mapper(),
             //  Lab_Test = source.Lab_Tests.Mapper(),
               ParmId = source.ParmId,
-              TestId = source.TestId
+              TestId = source.TestId,
+              TestName = source.Lab_Tests.Name,
+              ParmName = source.Lab_Parms.Name
             };
         }
     }

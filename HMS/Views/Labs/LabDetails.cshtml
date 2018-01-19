@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Labs Mapping";
+}
+@Styles.Render("~/Content/LabParmsMapping")
+
+@model HmsServices.Models.LabMappingResponseModel
+
+<style>
+.select2-search input {
+    margin-top: -3px
+}
+</style>
+
+<div class="content content-opdplsitview">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                        <h4 class="title">@Model.TestName</h4>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-primary">
+                                <tr>
+                                    <th>Mapping No.</th>
+                                    <th>Name</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                @{
+                                    if (Model != null && Model.LabMapping!=null)
+                                    {
+                                        foreach (var item in Model.LabMapping)
+                                        {
+                                            <tr>
+                                                <td >@item.Id</td>
+                                                <td id='name_@item.Id'>@item.ParmName</td>
+                                                
+                                                <td>
+                                                    <button value="Remove" onclick="deleteMaping(@Json.Encode(item))" class="form-control btn btn-danger">
+                                                        Remove
+                                                    </button>   
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="paggingDiv" style="margin-left: 20px;"></div>
+
+                </div>
+                <button id="createNewTest" type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
+                    Map New Parameter
+                    <div class="ripple-container"></div>
+                </button>
+                <img src="~/Images/loading.gif" class="pull-right loading-docs displayNone" />
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Parameter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="remoteDataExample" class="form-control-label">Name</label>
+                            <input type="hidden" class="form-control" id="remoteDataExample" name='input' />
+                        </div>
+                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addParm">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/LabMapping")
+
+<script>
+    var dataList= @Html.Raw(Json.Encode(Model.LabMapping));
+</script>

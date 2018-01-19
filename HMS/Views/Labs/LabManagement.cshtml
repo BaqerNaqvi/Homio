@@ -14,7 +14,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"> Lab Tests List View <div class="ripple-container"></div></a>
+            <a class="navbar-brand" href="#"> Labs List View <div class="ripple-container"></div></a>
         </div>
         <div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right" role="search">
@@ -37,7 +37,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" data-background-color="purple">
-                        <h4 class="title">Lab Test Data</h4>
+                        <h4 class="title">Labs Data</h4>
                     </div>
                     <div class="card-content table-responsive">
                         <table class="table">
@@ -61,7 +61,7 @@
                                         var status = item.Status ? "checked" : "";
                                         <tr>
                                             <td>@item.Id</td>
-                                            <td>@item.Name</td>
+                                            <td><a href="~/Labs/LabDetails?labId=@item.Id">@item.Name</a></td>
                                             <td>@item.Fee</td>
                                             <td>
                                                 <div class="checkbox ">
@@ -70,7 +70,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td title="Edit" class="cursorPointer editlab" id="editLab_@item.Id"><i class="material-icons">edit</i></td>
+                                            <td title="Edit" onclick="editTest(@Json.Encode(item))" class="cursorPointer editlab" id="editLab_@item.Id"><i class="material-icons">edit</i></td>
 
                                         </tr>
                                     }
@@ -82,7 +82,7 @@
                     <div id="paggingDiv" style="margin-left: 20px;"></div>
 
                 </div>
-                <button id="createNewSlipBtn" type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
+                <button id="createNewTest" type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
                     Add New Test
                     <div class="ripple-container"></div>
                 </button>

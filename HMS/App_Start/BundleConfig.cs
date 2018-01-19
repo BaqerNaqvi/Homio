@@ -53,7 +53,15 @@ namespace HMS
                   "~/Scripts/Labs/Management/lab_mgmt.js",
                   "~/Scripts/jquery.simplePagination.js"));
 
-            // Cascading Style sheets 
+            bundles.Add(new ScriptBundle("~/bundles/LabParms").Include(
+                "~/Scripts/Labs/Parms/labsParms.js",
+                "~/Scripts/jquery.simplePagination.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/LabMapping").Include(
+             "~/Scripts/Labs/Mapping/labMapping.js",
+             "~/Scripts/select2.js"));
+
+            //Cascading Style sheets 
 
             bundles.Add(new StyleBundle("~/Content/loginCss").Include(
                       "~/Content/style-login.css",
@@ -76,6 +84,12 @@ namespace HMS
 
             bundles.Add(new StyleBundle("~/Content/LabMgmtCss").Include(
                  "~/Content/simplePagination.css"));
+
+            bundles.Add(new StyleBundle("~/Content/LabParmsCss").Include(
+                 "~/Content/simplePagination.css"));
+
+            bundles.Add(new StyleBundle("~/Content/LabParmsMapping").Include(
+                "~/Content/css/select2.css"));
         }
     }
 }
