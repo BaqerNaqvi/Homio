@@ -9,6 +9,12 @@ namespace HMS.Models
     public class OpdPageModel
     {
         public List<AppUserDoc_Dd> DoctorList { get; set; }
+
+        public string Mode { get; set; }
+
+        public AppOpd CreatedOpdForm { get; set; }
+
+        public List<AppOpd_RowModel> Records { get; set; }
     }
 
 

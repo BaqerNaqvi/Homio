@@ -16,6 +16,10 @@ namespace HmsServices.Models
     public class PaggingModel
     {
         public int TotalItems { get; set; }
+
+        /// <summary>
+        /// Current Page
+        /// </summary>
         public int Current { get; set; }
         public int ItemPerPage { get; set; }
     }

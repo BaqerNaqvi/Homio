@@ -21,6 +21,7 @@ namespace HMS.Controllers
             if (!string.IsNullOrEmpty(opdId))
             {
                 opd = OpdService.ConvertToIp(opdId);
+                opd.DateTime = DateTime.Now.ToLongTimeString();
             }
 
             var dataModel = new IpPageModel

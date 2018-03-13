@@ -20,6 +20,13 @@ namespace HmsServices.Models
 
     }
 
+    public class AppLab_TestDd
+    {
+        public long id { get; set; }
+        public string Name { get; set; }
+
+    }
+
     public static class LabTestMapper
     {
         public static AppLab_Test Mapper(this Lab_Tests source)
@@ -38,6 +45,15 @@ namespace HmsServices.Models
                 CreationDate = source.CreationDate.ToShortDateString(),
                 Interval = source.Interval,
                 Lab_Mapping = mapping
+            };
+        }
+
+        public static AppLab_TestDd MapperDd(this Lab_Tests source)
+        {
+            return new AppLab_TestDd
+            {
+                id = source.Id,
+                Name = source.Name + " (Rs. " + source.Fee + ")",
             };
         }
     }

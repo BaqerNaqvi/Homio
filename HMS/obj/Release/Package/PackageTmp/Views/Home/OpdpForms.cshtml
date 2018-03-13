@@ -3,7 +3,43 @@
 }
 @using HmsServices.Models
 @model HMS.Models.OpdPageModel
+@{
+    var viewPatientInfoOnly = "display:none;";
+    if (Model.Mode == "new" || Model.Mode == "edit")
+    {
+        viewPatientInfoOnly = "";
+    }
+}
+<style>
+ 
 
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
 
 <style>
     .mian-container-opdp {
@@ -27,33 +63,33 @@
                         <p class="category">Complete The follow form</p>
                     </div>
                     <div class="card-content">
-                        <div class="row opdFormheading">
+                        <div class="row opdFormheading" style="@viewPatientInfoOnly">
                             <div class="col-md-3">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Daily No.</label>
-                                    <input id="dailyNo" type="text" value="  " class="form-control other-cons" disabled>
+                                    <input id="dailyNo" type="text" value=" @Model.CreatedOpdForm.DailyNo " class="form-control other-cons" disabled>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Date & Time</label>
-                                    <input id="dateTime"type="text" class="form-control other-cons" value="  " disabled>
+                                    <input id="dateTime"type="text" class="form-control other-cons" value=" @Model.CreatedOpdForm.DateTime " disabled>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Serial No.</label>
-                                    <input id="serialNo" type="text" class="form-control other-cons" value="  " disabled>
+                                    <input id="serialNo" type="text" class="form-control other-cons" value=" " disabled>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group label-floating">
                                     <label class="control-label">MR No.</label>
-                                    <input id="ptid" type="text" class="form-control other-cons" value="  ">
+                                    <input id="ptid" type="text" class="form-control other-cons" value=" @Model.CreatedOpdForm.PatientNo ">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="@viewPatientInfoOnly">
                             <div class="col-md-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Doctor</label>
@@ -64,7 +100,12 @@
                                             {
                                                 foreach (var doc in Model.DoctorList)
                                                 {
-                                                    <option data-fee="@doc.Fee" value="@doc.Id">@doc.Name</option>
+                                                    var selected = "";
+                                                    if (doc.Id == Model.CreatedOpdForm.DoctorId)
+                                                    {
+                                                        selected = "selected='selected'";
+                                                    }
+                                                    <option data-fee="@doc.Fee" @selected value="@doc.Id">@doc.Name</option>
                                                 }
                                             }
                                         }
@@ -74,13 +115,25 @@
                             <div class="col-md-2">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Fee</label>
-                                    <input id="fee" type="text" class="form-control opdRequired" disabled="" value=" ">
+                                    <input id="fee" type="text" class="form-control opdRequired" disabled="" value=" @Model.CreatedOpdForm.DocFee ">
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Visit No</label>
+                                    <input id="visitNo" type="text" value=" @Model.CreatedOpdForm.VisitNo " disabled="" class="form-control opdRequired">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group label-floating">
-                                    <label class="control-label">Visit No</label>
-                                    <input id="visitNo" type="text" value=" " class="form-control opdRequired">
+                                    <label class="control-label">Discount</label>
+                                    <input id="discount" type="text" class="form-control numOnly"  value=" @Model.CreatedOpdForm.Discount ">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Discount By</label>
+                                    <input id="discountBy" type="text" class="form-control" value=" @Model.CreatedOpdForm.DiscountBy ">
                                 </div>
                             </div>
                         </div>
@@ -88,13 +141,13 @@
                             <div class="col-md-6">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Full Name</label>
-                                    <input id="fullname" type="text" value=" " class="form-control opdRequired">
+                                    <input id="fullname" type="text" value=" @Model.CreatedOpdForm.Name " class="form-control opdRequired">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group label-floating">
                                     <label class="control-label">S/O, W/O, D/O</label>
-                                    <input id="gname"type="text" value=" " class="form-control opdRequired">
+                                    <input id="gname"type="text" value=" @Model.CreatedOpdForm.GuardianName " class="form-control opdRequired">
                                 </div>
                             </div>
                         </div>
@@ -102,7 +155,7 @@
                             <div class="col-md-3">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Age</label>
-                                    <input id="age" type="text" value=" " class="form-control opdRequired numOnly">
+                                    <input id="age" type="text" value=" @Model.CreatedOpdForm.Age " class="form-control opdRequired numOnly">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -118,7 +171,7 @@
                             <div class="col-md-5">
                                 <div class="form-group label-floating">
                                     <label class="control-label">CNIC No.</label>
-                                    <input id="cnicNo" type="text" value=" " class="form-control">
+                                    <input id="cnicNo" type="text" value=" @Model.CreatedOpdForm.CNIC " class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -126,7 +179,7 @@
                             <div class="col-md-12">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Address</label>
-                                    <input id="addredd" type="text" value=" " class="form-control opdRequired">
+                                    <input id="addredd" type="text" value=" @Model.CreatedOpdForm.Address " class="form-control opdRequired">
                                 </div>
                             </div>
                         </div>
@@ -134,7 +187,7 @@
                             <div class="col-md-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Phone No.</label>
-                                    <input id="phNo" type="text" value=" " class="form-control">
+                                    <input id="phNo" type="text" value=" @Model.CreatedOpdForm.Phone " class="form-control">
                                 </div>
                             </div>
 
@@ -149,16 +202,76 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right" id="createNewOpdFormBtn">Create</button>
+                      
+                        <button type="submit" class="btn btn-primary pull-right" id="createNewOpdFormBtn">Update</button>
                         <button type="submit" class="btn btn-default pull-right" id="clearOpdFormBtn">Clear</button>
-
+                     @{
+                         if (Model != null && Model.Records != null && Model.Records.Any())
+                         {
+                            <a data-toggle="modal" data-target="#exampleModal" style="margin-top: 20px;cursor: pointer;margin-right: 17px;" class="pull-right">Show Details</a>
+                         }
+                    }
                         <img src="~/Images/loading.gif" class="pull-right loading-docs displayNone"/>
-                        <a href="#" id="printLink">XXX</a>
                         <div class="clearfix"></div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">OPD History - @Model.CreatedOpdForm.Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="parmForm">                       
+                        <table id="customers">
+                            <tr>
+                                <th>Id</th>
+                                <th>Visit No.</th>
+                                <th>Doctor</th>
+                                <th>Date</th>
+                                <th>Amount Paid</th>
+                            </tr>
+                            @{
+                                if (Model != null && Model.Records != null && Model.Records.Any())
+                                {
+                                    foreach (var rec in Model.Records)
+                                    {
+                                        var amount = (rec.DocFee - rec.Discount);
+                                        <tr>
+                                            <td>@rec.Id</td>
+                                            <td>@rec.VisitNo</td>
+                                            <td>@rec.DocName</td>
+                                            <td>@rec.DateTime</td>
+                                            <td>@amount</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer" style="margin-top: 5%; margin-right: 3%;">
+                    <button type="button" class="btn btn-primary" style="display: none" id="addPlab">Add</button>
+                    <button type="button" class="btn btn-primary" style="display: none" id="updatePlabPe">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 @Scripts.Render("~/bundles/OPDAddViewJs")
+<script>
+    var genderObj= @Html.Raw(Json.Encode(Model.CreatedOpdForm.Gender));
+    var shaadiObj= @Html.Raw(Json.Encode(Model.CreatedOpdForm.MartialStatus));
+    var idObj= @Html.Raw(Json.Encode(Model.CreatedOpdForm.Id));
+    var modeObj= @Html.Raw(Json.Encode(Model.Mode));
+</script>

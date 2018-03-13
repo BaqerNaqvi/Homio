@@ -33,9 +33,15 @@ namespace HmsServices.Models
             //  Lab_Test = source.Lab_Tests.Mapper(),
               ParmId = source.ParmId,
               TestId = source.TestId,
-              TestName = source.Lab_Tests.Name,
-              ParmName = source.Lab_Parms.Name
+              TestName = source.Lab_Tests?.Name,
+              ParmName = source.Lab_Parms?.Name
             };
         }
     }
+
+
+   
+
+
+
 }

@@ -29,6 +29,11 @@ namespace HmsServices.Models
         public int DocFee { get; set; }
 
         public string Degree { get; set; }
+        public bool Status { get; set; }
+        public string Mode { get; set; }
+        public Nullable<int> Discount { get; set; }
+        public string DiscountBy { get; set; }
+        public string InsuranceNo { get; set; }
 
     }
 
@@ -36,6 +41,10 @@ namespace HmsServices.Models
     {
         public static AppOpd MaptoOpd(this OPD source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             return new AppOpd
             {
                 DateTime = source.DateTime.ToLongDateString()+" "+source.DateTime.ToShortTimeString(),
@@ -54,7 +63,26 @@ namespace HmsServices.Models
                 VisitNo = source.VisitNo,
                 MartialStatus = source.MartialStatus,
                 DocFee= source.Doctor.Fee,
-                Degree = source.Doctor.Degree
+                Status =(bool) source.Status,
+                Degree = source.Doctor.Degree,
+                Discount= source.Discount??0,
+                DiscountBy= source.DiscountBy,
+                InsuranceNo = source.InsuranceNo
+            };
+        }
+
+        public static AppOpd_RowModel MaptoOpd_Row(this OPD source)
+        {
+            return new AppOpd_RowModel
+            {
+                DateTime = source.DateTime.ToLongDateString() + " " + source.DateTime.ToShortTimeString(),              
+                DailyNo = source.DailyNo,
+                DocName = source.Doctor.Title + " " + source.Doctor.FirstName + " " + source.Doctor.LastName,
+                DoctorId = source.DoctorId,               
+                Id = source.Id,               
+                VisitNo = source.VisitNo,
+                DocFee = source.Doctor.Fee,              
+                Discount = source.Discount??0,
             };
         }
 
@@ -81,5 +109,33 @@ namespace HmsServices.Models
                 OpdId = source.Id
             };
         }
+    }
+
+
+
+    public class AppOpd_RowModel
+    {
+        public long Id { get; set; }
+        public long DailyNo { get; set; }
+     
+
+        public string DateTime { get; set; }
+      
+        public Nullable<int> VisitNo { get; set; }
+        public string DoctorId { get; set; }
+
+        public string DocName { get; set; }
+        public int DocFee { get; set; }
+
+        public Nullable<int> Discount { get; set; }
+
+    }
+
+
+    public class AppOpd_RowModelModel
+    {
+        public List<AppOpd_RowModel> Records { get; set; }
+
+        public AppOpd Opd { get; set; }
     }
 }

@@ -90,6 +90,8 @@
           <Property Name="BloodGroup" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="OpdId" Type="bigint" />
           <Property Name="AdmissionFee" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="DiscountBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Lab_Mapping">
           <Key>
@@ -109,6 +111,7 @@
           <Property Name="Unit" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NormarVal" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Price" Type="int" />
         </EntityType>
         <EntityType Name="Lab_Tests">
           <Key>
@@ -139,6 +142,50 @@
           <Property Name="VisitNo" Type="int" />
           <Property Name="DoctorId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="MartialStatus" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="DiscountBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="InsuranceNo" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="PatientLabs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientNo" Type="nvarchar" MaxLength="150" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="bit" Nullable="false" />
+          <Property Name="RegisteredBy" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PerformedBy" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Requested" Type="datetime" Nullable="false" />
+          <Property Name="Reported" Type="datetime" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="GuardianName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="MaritalStatus" Type="bit" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="DiscountBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="Amount" Type="int" />
+        </EntityType>
+        <EntityType Name="PatientLabs_Labs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientLabId" Type="bigint" Nullable="false" />
+          <Property Name="TestId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PatientLabs_Labs_Parms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestId" Type="bigint" Nullable="false" />
+          <Property Name="ParmId" Type="bigint" Nullable="false" />
+          <Property Name="ParmValue" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="PatientLabId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="WardsRooms">
           <Key>
@@ -255,6 +302,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientLabs_Labs_Lab_Tests">
+          <End Role="Lab_Tests" Type="Self.Lab_Tests" Multiplicity="1" />
+          <End Role="PatientLabs_Labs" Type="Self.PatientLabs_Labs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lab_Tests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientLabs_Labs">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientLabs_Labs_Parms_Lab_Parms">
+          <End Role="Lab_Parms" Type="Self.Lab_Parms" Multiplicity="1" />
+          <End Role="PatientLabs_Labs_Parms" Type="Self.PatientLabs_Labs_Parms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lab_Parms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientLabs_Labs_Parms">
+              <PropertyRef Name="ParmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientLabs_Labs_PatientLabs">
+          <End Role="PatientLabs" Type="Self.PatientLabs" Multiplicity="1" />
+          <End Role="PatientLabs_Labs" Type="Self.PatientLabs_Labs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientLabs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientLabs_Labs">
+              <PropertyRef Name="PatientLabId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HMSDbModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -266,6 +349,9 @@
           <EntitySet Name="Lab_Parms" EntityType="Self.Lab_Parms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lab_Tests" EntityType="Self.Lab_Tests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OPD" EntityType="Self.OPD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientLabs" EntityType="Self.PatientLabs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientLabs_Labs" EntityType="Self.PatientLabs_Labs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientLabs_Labs_Parms" EntityType="Self.PatientLabs_Labs_Parms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WardsRooms" EntityType="Self.WardsRooms" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -299,6 +385,18 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="OPD" EntitySet="OPD" />
           </AssociationSet>
+          <AssociationSet Name="FK_PatientLabs_Labs_Lab_Tests" Association="Self.FK_PatientLabs_Labs_Lab_Tests">
+            <End Role="Lab_Tests" EntitySet="Lab_Tests" />
+            <End Role="PatientLabs_Labs" EntitySet="PatientLabs_Labs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientLabs_Labs_Parms_Lab_Parms" Association="Self.FK_PatientLabs_Labs_Parms_Lab_Parms">
+            <End Role="Lab_Parms" EntitySet="Lab_Parms" />
+            <End Role="PatientLabs_Labs_Parms" EntitySet="PatientLabs_Labs_Parms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientLabs_Labs_PatientLabs" Association="Self.FK_PatientLabs_Labs_PatientLabs">
+            <End Role="PatientLabs" EntitySet="PatientLabs" />
+            <End Role="PatientLabs_Labs" EntitySet="PatientLabs_Labs" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -308,8 +406,13 @@
           <EntitySet Name="AspNetRoles" EntityType="HMSDbModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="HMSDbModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="HMSDbModel.AspNetUserLogin" />
-          <EntitySet Name="OPDs" EntityType="HMSDbModel.OPD" />
           <EntitySet Name="AspNetUsers" EntityType="HMSDbModel.AspNetUser" />
+          <EntitySet Name="IpForms" EntityType="HMSDbModel.IpForm" />
+          <EntitySet Name="Lab_Mapping" EntityType="HMSDbModel.Lab_Mapping" />
+          <EntitySet Name="Lab_Parms" EntityType="HMSDbModel.Lab_Parms" />
+          <EntitySet Name="Lab_Tests" EntityType="HMSDbModel.Lab_Tests" />
+          <EntitySet Name="OPDs" EntityType="HMSDbModel.OPD" />
+          <EntitySet Name="WardsRooms" EntityType="HMSDbModel.WardsRoom" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HMSDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -318,23 +421,14 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_OPD_OPD" Association="HMSDbModel.FK_OPD_OPD">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="OPD" EntitySet="OPDs" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="HMSDbModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="WardsRooms" EntityType="HMSDbModel.WardsRoom" />
-          <EntitySet Name="IpForms" EntityType="HMSDbModel.IpForm" />
           <AssociationSet Name="FK_IpForm_AspNetUsers" Association="HMSDbModel.FK_IpForm_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="IpForm" EntitySet="IpForms" />
           </AssociationSet>
-          <EntitySet Name="Lab_Mapping" EntityType="HMSDbModel.Lab_Mapping" />
-          <EntitySet Name="Lab_Parms" EntityType="HMSDbModel.Lab_Parms" />
-          <EntitySet Name="Lab_Tests" EntityType="HMSDbModel.Lab_Tests" />
+          <AssociationSet Name="FK_OPD_OPD" Association="HMSDbModel.FK_OPD_OPD">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="OPD" EntitySet="OPDs" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lab_Mapping_Lab_Parms" Association="HMSDbModel.FK_Lab_Mapping_Lab_Parms">
             <End Role="Lab_Parms" EntitySet="Lab_Parms" />
             <End Role="Lab_Mapping" EntitySet="Lab_Mapping" />
@@ -343,7 +437,26 @@
             <End Role="Lab_Tests" EntitySet="Lab_Tests" />
             <End Role="Lab_Mapping" EntitySet="Lab_Mapping" />
           </AssociationSet>
-          </EntityContainer>
+          <AssociationSet Name="AspNetUserRoles" Association="HMSDbModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="PatientLabs" EntityType="HMSDbModel.PatientLab" />
+          <EntitySet Name="PatientLabs_Labs" EntityType="HMSDbModel.PatientLabs_Labs" />
+          <EntitySet Name="PatientLabs_Labs_Parms" EntityType="HMSDbModel.PatientLabs_Labs_Parms" />
+          <AssociationSet Name="FK_PatientLabs_Labs_Parms_Lab_Parms" Association="HMSDbModel.FK_PatientLabs_Labs_Parms_Lab_Parms">
+            <End Role="Lab_Parms" EntitySet="Lab_Parms" />
+            <End Role="PatientLabs_Labs_Parms" EntitySet="PatientLabs_Labs_Parms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientLabs_Labs_Lab_Tests" Association="HMSDbModel.FK_PatientLabs_Labs_Lab_Tests">
+            <End Role="Lab_Tests" EntitySet="Lab_Tests" />
+            <End Role="PatientLabs_Labs" EntitySet="PatientLabs_Labs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientLabs_Labs_PatientLabs" Association="HMSDbModel.FK_PatientLabs_Labs_PatientLabs">
+            <End Role="PatientLab" EntitySet="PatientLabs" />
+            <End Role="PatientLabs_Labs" EntitySet="PatientLabs_Labs" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -373,26 +486,6 @@
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="HMSDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
         </EntityType>
-        <EntityType Name="OPD">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DailyNo" Type="Int64" Nullable="false" />
-          <Property Name="PatientNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="GuardianName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Age" Type="Int32" Nullable="false" />
-          <Property Name="Gender" Type="Boolean" Nullable="false" />
-          <Property Name="CNIC" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="VisitNo" Type="Int32" />
-          <Property Name="DoctorId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="MartialStatus" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Doctor" Relationship="HMSDbModel.FK_OPD_OPD" FromRole="OPD" ToRole="AspNetUser" />
-        </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -421,12 +514,109 @@
           <Property Name="ShiftFrom" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ShiftToo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ShiftDays" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PMDCNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="HMSDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="HMSDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="IpForms" Relationship="HMSDbModel.FK_IpForm_AspNetUsers" FromRole="AspNetUser" ToRole="IpForm" />
           <NavigationProperty Name="OPDs" Relationship="HMSDbModel.FK_OPD_OPD" FromRole="AspNetUser" ToRole="OPD" />
           <NavigationProperty Name="AspNetRoles" Relationship="HMSDbModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-          <NavigationProperty Name="IpForms" Relationship="HMSDbModel.FK_IpForm_AspNetUsers" FromRole="AspNetUser" ToRole="IpForm" />
-          <Property Name="PMDCNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="IpForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GuardianName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="CNIC" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DoctorId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MartialStatus" Type="Boolean" Nullable="false" />
+          <Property Name="AdvanceAmount" Type="Int32" Nullable="false" />
+          <Property Name="Caste" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OpdId" Type="Int64" />
+          <Property Name="AdmissionFee" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="HMSDbModel.FK_IpForm_AspNetUsers" FromRole="IpForm" ToRole="AspNetUser" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="DiscountBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Lab_Mapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParmId" Type="Int64" Nullable="false" />
+          <Property Name="TestId" Type="Int64" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Lab_Parms" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Parms" FromRole="Lab_Mapping" ToRole="Lab_Parms" />
+          <NavigationProperty Name="Lab_Tests" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Tests" FromRole="Lab_Mapping" ToRole="Lab_Tests" />
+        </EntityType>
+        <EntityType Name="Lab_Parms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NormarVal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Lab_Mapping" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Parms" FromRole="Lab_Parms" ToRole="Lab_Mapping" />
+          <NavigationProperty Name="PatientLabs_Labs_Parms" Relationship="HMSDbModel.FK_PatientLabs_Labs_Parms_Lab_Parms" FromRole="Lab_Parms" ToRole="PatientLabs_Labs_Parms" />
+          <Property Name="Price" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Lab_Tests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Fee" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Interval" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Lab_Mapping" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Tests" FromRole="Lab_Tests" ToRole="Lab_Mapping" />
+          <NavigationProperty Name="PatientLabs_Labs" Relationship="HMSDbModel.FK_PatientLabs_Labs_Lab_Tests" FromRole="Lab_Tests" ToRole="PatientLabs_Labs" />
+        </EntityType>
+        <EntityType Name="OPD">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DailyNo" Type="Int64" Nullable="false" />
+          <Property Name="PatientNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GuardianName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="CNIC" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VisitNo" Type="Int32" />
+          <Property Name="DoctorId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MartialStatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="HMSDbModel.FK_OPD_OPD" FromRole="OPD" ToRole="AspNetUser" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="DiscountBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InsuranceNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WardsRoom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Parent" Type="Int64" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Booked" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -456,56 +646,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OPD_OPD">
-          <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="HMSDbModel.OPD" Role="OPD" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OPD">
-              <PropertyRef Name="DoctorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="HMSDbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-        </Association>
-        <EntityType Name="WardsRoom">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Parent" Type="Int64" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Booked" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="IpForm">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PatientNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="GuardianName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Age" Type="Int32" Nullable="false" />
-          <Property Name="Gender" Type="Boolean" Nullable="false" />
-          <Property Name="CNIC" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DoctorId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="MartialStatus" Type="Boolean" Nullable="false" />
-          <Property Name="AdvanceAmount" Type="Int32" Nullable="false" />
-          <Property Name="Caste" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="BloodGroup" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="OpdId" Type="Int64" />
-          <NavigationProperty Name="Doctor" Relationship="HMSDbModel.FK_IpForm_AspNetUsers" FromRole="IpForm" ToRole="AspNetUser" />
-          <Property Name="AdmissionFee" Type="Int32" Nullable="false" />
-        </EntityType>
         <Association Name="FK_IpForm_AspNetUsers">
           <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
           <End Type="HMSDbModel.IpForm" Role="IpForm" Multiplicity="*" />
@@ -518,40 +658,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Lab_Mapping">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParmId" Type="Int64" Nullable="false" />
-          <Property Name="TestId" Type="Int64" Nullable="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Lab_Parms" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Parms" FromRole="Lab_Mapping" ToRole="Lab_Parms" />
-          <NavigationProperty Name="Lab_Tests" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Tests" FromRole="Lab_Mapping" ToRole="Lab_Tests" />
-        </EntityType>
-        <EntityType Name="Lab_Parms">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Unit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NormarVal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Lab_Mapping" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Parms" FromRole="Lab_Parms" ToRole="Lab_Mapping" />
-        </EntityType>
-        <EntityType Name="Lab_Tests">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Fee" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="Interval" Type="Int32" Nullable="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Lab_Mapping" Relationship="HMSDbModel.FK_Lab_Mapping_Lab_Tests" FromRole="Lab_Tests" ToRole="Lab_Mapping" />
-        </EntityType>
+        <Association Name="FK_OPD_OPD">
+          <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="HMSDbModel.OPD" Role="OPD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OPD">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lab_Mapping_Lab_Parms">
           <End Type="HMSDbModel.Lab_Parms" Role="Lab_Parms" Multiplicity="1" />
           <End Type="HMSDbModel.Lab_Mapping" Role="Lab_Mapping" Multiplicity="*" />
@@ -573,6 +691,90 @@
             </Principal>
             <Dependent Role="Lab_Mapping">
               <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="HMSDbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="HMSDbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="PatientLab">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="PatientNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="RegisteredBy" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PerformedBy" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Requested" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reported" Type="DateTime" Precision="3" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GuardianName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PatientLabs_Labs" Relationship="HMSDbModel.FK_PatientLabs_Labs_PatientLabs" FromRole="PatientLab" ToRole="PatientLabs_Labs" />
+          <Property Name="MaritalStatus" Type="Boolean" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="DiscountBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PatientLabs_Labs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientLabId" Type="Int64" Nullable="false" />
+          <Property Name="TestId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Lab_Tests" Relationship="HMSDbModel.FK_PatientLabs_Labs_Lab_Tests" FromRole="PatientLabs_Labs" ToRole="Lab_Tests" />
+          <NavigationProperty Name="PatientLab" Relationship="HMSDbModel.FK_PatientLabs_Labs_PatientLabs" FromRole="PatientLabs_Labs" ToRole="PatientLab" />
+        </EntityType>
+        <EntityType Name="PatientLabs_Labs_Parms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParmId" Type="Int64" Nullable="false" />
+          <Property Name="ParmValue" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lab_Parms" Relationship="HMSDbModel.FK_PatientLabs_Labs_Parms_Lab_Parms" FromRole="PatientLabs_Labs_Parms" ToRole="Lab_Parms" />
+          <Property Name="TestId" Type="Int64" Nullable="false" />
+          <Property Name="PatientLabId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PatientLabs_Labs_Parms_Lab_Parms">
+          <End Type="HMSDbModel.Lab_Parms" Role="Lab_Parms" Multiplicity="1" />
+          <End Type="HMSDbModel.PatientLabs_Labs_Parms" Role="PatientLabs_Labs_Parms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lab_Parms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientLabs_Labs_Parms">
+              <PropertyRef Name="ParmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientLabs_Labs_Lab_Tests">
+          <End Type="HMSDbModel.Lab_Tests" Role="Lab_Tests" Multiplicity="1" />
+          <End Type="HMSDbModel.PatientLabs_Labs" Role="PatientLabs_Labs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lab_Tests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientLabs_Labs">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientLabs_Labs_PatientLabs">
+          <End Type="HMSDbModel.PatientLab" Role="PatientLab" Multiplicity="1" />
+          <End Type="HMSDbModel.PatientLabs_Labs" Role="PatientLabs_Labs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientLab">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatientLabs_Labs">
+              <PropertyRef Name="PatientLabId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -609,26 +811,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OPDs">
-            <EntityTypeMapping TypeName="HMSDbModel.OPD">
-              <MappingFragment StoreEntitySet="OPD">
-                <ScalarProperty Name="MartialStatus" ColumnName="MartialStatus" />
-                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
-                <ScalarProperty Name="VisitNo" ColumnName="VisitNo" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-                <ScalarProperty Name="PatientNo" ColumnName="PatientNo" />
-                <ScalarProperty Name="DailyNo" ColumnName="DailyNo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="HMSDbModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
@@ -660,29 +842,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="HMSDbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="WardsRooms">
-            <EntityTypeMapping TypeName="HMSDbModel.WardsRoom">
-              <MappingFragment StoreEntitySet="WardsRooms">
-                <ScalarProperty Name="Booked" ColumnName="Booked" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Parent" ColumnName="Parent" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="IpForms">
             <EntityTypeMapping TypeName="HMSDbModel.IpForm">
               <MappingFragment StoreEntitySet="IpForm">
+                <ScalarProperty Name="DiscountBy" ColumnName="DiscountBy" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="AdmissionFee" ColumnName="AdmissionFee" />
                 <ScalarProperty Name="OpdId" ColumnName="OpdId" />
                 <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
@@ -716,6 +880,7 @@
           <EntitySetMapping Name="Lab_Parms">
             <EntityTypeMapping TypeName="HMSDbModel.Lab_Parms">
               <MappingFragment StoreEntitySet="Lab_Parms">
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="NormarVal" ColumnName="NormarVal" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
@@ -732,6 +897,93 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Fee" ColumnName="Fee" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OPDs">
+            <EntityTypeMapping TypeName="HMSDbModel.OPD">
+              <MappingFragment StoreEntitySet="OPD">
+                <ScalarProperty Name="InsuranceNo" ColumnName="InsuranceNo" />
+                <ScalarProperty Name="DiscountBy" ColumnName="DiscountBy" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MartialStatus" ColumnName="MartialStatus" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="VisitNo" ColumnName="VisitNo" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="PatientNo" ColumnName="PatientNo" />
+                <ScalarProperty Name="DailyNo" ColumnName="DailyNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WardsRooms">
+            <EntityTypeMapping TypeName="HMSDbModel.WardsRoom">
+              <MappingFragment StoreEntitySet="WardsRooms">
+                <ScalarProperty Name="Booked" ColumnName="Booked" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="HMSDbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="PatientLabs">
+            <EntityTypeMapping TypeName="HMSDbModel.PatientLab">
+              <MappingFragment StoreEntitySet="PatientLabs">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DiscountBy" ColumnName="DiscountBy" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="Reported" ColumnName="Reported" />
+                <ScalarProperty Name="Requested" ColumnName="Requested" />
+                <ScalarProperty Name="PerformedBy" ColumnName="PerformedBy" />
+                <ScalarProperty Name="RegisteredBy" ColumnName="RegisteredBy" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PatientNo" ColumnName="PatientNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientLabs_Labs">
+            <EntityTypeMapping TypeName="HMSDbModel.PatientLabs_Labs">
+              <MappingFragment StoreEntitySet="PatientLabs_Labs">
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="PatientLabId" ColumnName="PatientLabId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientLabs_Labs_Parms">
+            <EntityTypeMapping TypeName="HMSDbModel.PatientLabs_Labs_Parms">
+              <MappingFragment StoreEntitySet="PatientLabs_Labs_Parms">
+                <ScalarProperty Name="PatientLabId" ColumnName="PatientLabId" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="ParmValue" ColumnName="ParmValue" />
+                <ScalarProperty Name="ParmId" ColumnName="ParmId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

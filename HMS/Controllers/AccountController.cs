@@ -78,6 +78,10 @@ namespace HMS.Controllers
                 {
                     case SignInStatus.Success:
                         isSuccess = true;
+                        var dbUser = UserManager.FindByEmail(model.Email);
+                        Session["userFirstName"] = dbUser.FirstName;
+                        Session["timeZoneOfset"] =model.TimeZoonOfset;
+
                         message = "Successfully logged in";
                         break;
                     case SignInStatus.LockedOut:
@@ -159,20 +163,29 @@ namespace HMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {FirstName = model.FirstName, LastName = model.LastName,UserName = model.Email, Email = model.Email , Fee = model.Fee, CreationTime = DateTime.Now, LastEditDateTime = DateTime.Now, Status = true};
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                try
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                     await UserManager.SendEmailAsync(user.Id, "Confirm your account - Doctors", "Please confirm your account by clicking " + callbackUrl );
-                    return RedirectToAction("Index", "Home");
+                    var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Email, Email = model.Email, Fee = model.Fee, CreationTime = DateTime.Now, LastEditDateTime = DateTime.Now, Status = true };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        var roleAdded = UserManager.AddToRole(user.Id, "Doctor");
+                        var res = roleAdded.Succeeded;
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account - Doctors", "Please confirm your account by clicking " + callbackUrl);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                catch (Exception sd)
+                {
+
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -402,6 +415,7 @@ namespace HMS.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session["userFirstName"] = "";
             return RedirectToAction("Login", "Account");
         }
 

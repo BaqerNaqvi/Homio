@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     ViewBag.Title = "Home Page";
     Layout = null;
 }
@@ -63,12 +64,21 @@
                     </a>
                 </li>
 
-                <li id="docsList">
+                <li id="assignLabs">
+                    <a href="~/Labs/PatientLabs">
+                        <i class="material-icons">
+                            invert_colors
+                        </i>
+                        <p>Assign Labs</p>
+                    </a>
+                </li>
+
+                <li id="logoutuser">
                     <a href="~/account/logoff">
                         <i class="material-icons">
                             exit_to_app
                         </i>
-                        <p>Log out</p>
+                        <p id="logoutP">Log out (@Session["userFirstName"])</p>
                     </a>
                 </li>
                

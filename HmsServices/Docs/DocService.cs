@@ -15,7 +15,7 @@ namespace HmsServices.Docs
         {
             using (var dbContext = new HMSEntities())
             {
-                var docs = dbContext.AspNetUsers.Where(doc => doc.Fee > 0 && (doc.Status || doc.Status==onlyActive)).ToList();
+                var docs = dbContext.AspNetUsers.Where(doc =>doc.Type.Contains("Doctor") && doc.Fee > 0 && (doc.Status || doc.Status==onlyActive)).ToList();
                 if (docs.Any())
                 {
                    return docs.Select(doco => doco.MapToDoc()).ToList();
@@ -28,7 +28,7 @@ namespace HmsServices.Docs
         {
             using (var dbContext = new HMSEntities())
             {
-                var docs = dbContext.AspNetUsers.Where(doc => doc.Fee > 0 && (doc.Status)).ToList();
+                var docs = dbContext.AspNetUsers.Where(doc =>doc.Type.Contains("Doctor") && doc.Fee > 0 && (doc.Status)).ToList();
                 if (docs.Any())
                 {
                     return docs.Select(doco => doco.MapToDocDd()).ToList();

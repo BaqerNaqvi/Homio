@@ -28,26 +28,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="OPDs">
-      <EntityTypeMapping TypeName="HMSDbModel.OPD">
-        <MappingFragment StoreEntitySet="OPD">
-          <ScalarProperty Name="MartialStatus" ColumnName="MartialStatus" />
-          <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
-          <ScalarProperty Name="VisitNo" ColumnName="VisitNo" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="CNIC" ColumnName="CNIC" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="Age" ColumnName="Age" />
-          <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-          <ScalarProperty Name="PatientNo" ColumnName="PatientNo" />
-          <ScalarProperty Name="DailyNo" ColumnName="DailyNo" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="HMSDbModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
@@ -79,29 +59,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AspNetUserRoles" TypeName="HMSDbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-      <EndProperty Name="AspNetUser">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-      <EndProperty Name="AspNetRole">
-        <ScalarProperty Name="Id" ColumnName="RoleId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="WardsRooms">
-      <EntityTypeMapping TypeName="HMSDbModel.WardsRoom">
-        <MappingFragment StoreEntitySet="WardsRooms">
-          <ScalarProperty Name="Booked" ColumnName="Booked" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="Parent" ColumnName="Parent" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="IpForms">
       <EntityTypeMapping TypeName="HMSDbModel.IpForm">
         <MappingFragment StoreEntitySet="IpForm">
+          <ScalarProperty Name="DiscountBy" ColumnName="DiscountBy" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
           <ScalarProperty Name="AdmissionFee" ColumnName="AdmissionFee" />
           <ScalarProperty Name="OpdId" ColumnName="OpdId" />
           <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
@@ -135,6 +97,7 @@
     <EntitySetMapping Name="Lab_Parms">
       <EntityTypeMapping TypeName="HMSDbModel.Lab_Parms">
         <MappingFragment StoreEntitySet="Lab_Parms">
+          <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="NormarVal" ColumnName="NormarVal" />
           <ScalarProperty Name="Unit" ColumnName="Unit" />
@@ -151,6 +114,93 @@
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Fee" ColumnName="Fee" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OPDs">
+      <EntityTypeMapping TypeName="HMSDbModel.OPD">
+        <MappingFragment StoreEntitySet="OPD">
+          <ScalarProperty Name="InsuranceNo" ColumnName="InsuranceNo" />
+          <ScalarProperty Name="DiscountBy" ColumnName="DiscountBy" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MartialStatus" ColumnName="MartialStatus" />
+          <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+          <ScalarProperty Name="VisitNo" ColumnName="VisitNo" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="PatientNo" ColumnName="PatientNo" />
+          <ScalarProperty Name="DailyNo" ColumnName="DailyNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WardsRooms">
+      <EntityTypeMapping TypeName="HMSDbModel.WardsRoom">
+        <MappingFragment StoreEntitySet="WardsRooms">
+          <ScalarProperty Name="Booked" ColumnName="Booked" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Parent" ColumnName="Parent" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="HMSDbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRole">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="PatientLabs">
+      <EntityTypeMapping TypeName="HMSDbModel.PatientLab">
+        <MappingFragment StoreEntitySet="PatientLabs">
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DiscountBy" ColumnName="DiscountBy" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="GuardianName" ColumnName="GuardianName" />
+          <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+          <ScalarProperty Name="Reported" ColumnName="Reported" />
+          <ScalarProperty Name="Requested" ColumnName="Requested" />
+          <ScalarProperty Name="PerformedBy" ColumnName="PerformedBy" />
+          <ScalarProperty Name="RegisteredBy" ColumnName="RegisteredBy" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PatientNo" ColumnName="PatientNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PatientLabs_Labs">
+      <EntityTypeMapping TypeName="HMSDbModel.PatientLabs_Labs">
+        <MappingFragment StoreEntitySet="PatientLabs_Labs">
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+          <ScalarProperty Name="PatientLabId" ColumnName="PatientLabId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PatientLabs_Labs_Parms">
+      <EntityTypeMapping TypeName="HMSDbModel.PatientLabs_Labs_Parms">
+        <MappingFragment StoreEntitySet="PatientLabs_Labs_Parms">
+          <ScalarProperty Name="PatientLabId" ColumnName="PatientLabId" />
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+          <ScalarProperty Name="ParmValue" ColumnName="ParmValue" />
+          <ScalarProperty Name="ParmId" ColumnName="ParmId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

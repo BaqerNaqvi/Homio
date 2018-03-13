@@ -18,6 +18,7 @@ namespace HmsServices.DbContext
         public Lab_Tests()
         {
             this.Lab_Mapping = new HashSet<Lab_Mapping>();
+            this.PatientLabs_Labs = new HashSet<PatientLabs_Labs>();
         }
     
         public long Id { get; set; }
@@ -29,5 +30,7 @@ namespace HmsServices.DbContext
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lab_Mapping> Lab_Mapping { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientLabs_Labs> PatientLabs_Labs { get; set; }
     }
 }

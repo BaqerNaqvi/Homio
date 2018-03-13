@@ -161,7 +161,16 @@
                                 </div>
                         </div>
 
-                        <button id="addNewDoc" class="btn btn-primary pull-right">Save</button>
+                        @{
+                            if (User.IsInRole("Admin"))
+                            {
+                                <button id="addNewDoc" class="btn btn-primary pull-right">Save</button>
+                            }
+                            else
+                            {
+                                <p style="color: red">*Information is ready only</p>
+                            }
+                        }
                         <img src="~/Images/loading.gif" class="pull-right loading-docs displayNone" />
 
                         <div class="clearfix"></div>

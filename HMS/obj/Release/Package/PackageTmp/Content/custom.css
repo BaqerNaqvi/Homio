@@ -23,3 +23,27 @@
      .modal-body label {
          color: black
      }
+
+     #logoutP {
+         border-radius: 4px;
+    background-color: #ff00009e;
+    color: white;
+     }
+
+     .availableBulb {
+         background-color: #008000a3;
+        color: white;
+        border-radius: 5px;
+        padding-top: 2px;
+     }
+      .absentBulb {
+         background-color: #fa5d5e;
+        color: white;
+        border-radius: 5px;
+        padding-top: 2px;
+     }
+
+      #logoutuser i {
+          color: white !important;
+      }
+

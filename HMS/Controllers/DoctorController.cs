@@ -17,6 +17,10 @@ namespace HMS.Controllers
         [Authorize]
         public ActionResult ListOfDocs()
         {
+            DateTime dt = DateTime.Now;
+          //  var offset = int.Parse(Session["timeZoneOfset"].ToString());
+          //  dt = dt.AddMinutes(-1 * offset);
+
             var docs = DocService.GetAllDocs();
             return View(docs);
         }
@@ -55,7 +59,7 @@ namespace HMS.Controllers
                 var userManager = new UserManager<ApplicationUser>(userStore);
                 #endregion
                 #region Creation
-                var user = new ApplicationUser
+                var appuser = new ApplicationUser
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -74,13 +78,15 @@ namespace HMS.Controllers
                     PMDCNo= model.PMDCNo
 
                 };
-                var result = userManager.Create(user, "123456");
+                var result = userManager.Create(appuser, "123456");
                 if (result.Succeeded)
                 {
+                    var roleAdded = userManager.AddToRole(appuser.Id, "Doctor");
+                    var res = roleAdded.Succeeded;
                     return Json(new
                     {
                         isSuccess = true,
-                        doc = user,
+                        doc = appuser,
                         data = new List<string> { "Doctor added" }
                     }, JsonRequestBehavior.AllowGet);
                 }

@@ -60,6 +60,10 @@ namespace HMS.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+
+        public string TimeZoonOfset { get; set; }
+
     }
 
     public class RegisterViewModel

@@ -5,23 +5,29 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="65b8c2dbff974f0c8178d26411af4dec" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="HMSDbModel.AspNetRole" Width="1.5" PointX="0.75" PointY="5.125" />
-        <EntityTypeShape EntityType="HMSDbModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="8.5" />
-        <EntityTypeShape EntityType="HMSDbModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="1.25" />
-        <EntityTypeShape EntityType="HMSDbModel.OPD" Width="1.5" PointX="5.25" PointY="3.875" />
-        <EntityTypeShape EntityType="HMSDbModel.AspNetUser" Width="1.5" PointX="3" PointY="2.75" />
+        <EntityTypeShape EntityType="HMSDbModel.AspNetRole" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="HMSDbModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="11.375" />
+        <EntityTypeShape EntityType="HMSDbModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="14.125" />
+        <EntityTypeShape EntityType="HMSDbModel.AspNetUser" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="HMSDbModel.IpForm" Width="1.5" PointX="5.25" PointY="6.25" />
+        <EntityTypeShape EntityType="HMSDbModel.Lab_Mapping" Width="1.5" PointX="13.125" PointY="2.125" />
+        <EntityTypeShape EntityType="HMSDbModel.Lab_Parms" Width="2.375" PointX="7.75" PointY="0.875" />
+        <EntityTypeShape EntityType="HMSDbModel.Lab_Tests" Width="1.5" PointX="7.75" PointY="4.875" />
+        <EntityTypeShape EntityType="HMSDbModel.OPD" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="HMSDbModel.WardsRoom" Width="1.5" PointX="0.75" PointY="0.75" />
         <AssociationConnector Association="HMSDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="HMSDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="HMSDbModel.FK_OPD_OPD" />
-        <AssociationConnector Association="HMSDbModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="HMSDbModel.WardsRoom" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="HMSDbModel.IpForm" Width="1.5" PointX="0.75" PointY="7.5" />
         <AssociationConnector Association="HMSDbModel.FK_IpForm_AspNetUsers" />
-        <EntityTypeShape EntityType="HMSDbModel.Lab_Mapping" Width="1.5" PointX="9.625" PointY="3.875" />
-        <EntityTypeShape EntityType="HMSDbModel.Lab_Parms" Width="1.5" PointX="7.375" PointY="3.875" />
-        <EntityTypeShape EntityType="HMSDbModel.Lab_Tests" Width="1.5" PointX="11.75" PointY="4.875" />
+        <AssociationConnector Association="HMSDbModel.FK_OPD_OPD" />
         <AssociationConnector Association="HMSDbModel.FK_Lab_Mapping_Lab_Parms" />
         <AssociationConnector Association="HMSDbModel.FK_Lab_Mapping_Lab_Tests" />
+        <AssociationConnector Association="HMSDbModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="HMSDbModel.PatientLab" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="HMSDbModel.PatientLabs_Labs" Width="2" PointX="10" PointY="7.625" />
+        <EntityTypeShape EntityType="HMSDbModel.PatientLabs_Labs_Parms" Width="2.375" PointX="10" PointY="4.125" />
+        <AssociationConnector Association="HMSDbModel.FK_PatientLabs_Labs_Parms_Lab_Parms" />
+        <AssociationConnector Association="HMSDbModel.FK_PatientLabs_Labs_Lab_Tests" />
+        <AssociationConnector Association="HMSDbModel.FK_PatientLabs_Labs_PatientLabs" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

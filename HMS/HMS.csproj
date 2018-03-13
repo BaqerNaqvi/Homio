@@ -205,6 +205,11 @@
     <Compile Include="Controllers\LabsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PrintController.cs" />
+    <Compile Include="DataSets\labRecieptDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>labRecieptDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSets\Opd.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -220,6 +225,18 @@
     <Compile Include="Models\OpdPageModel.cs" />
     <Compile Include="Models\ReportModels\OpdSlipReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\labReport.cs">
+      <DependentUpon>labReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\labReceipt.cs">
+      <DependentUpon>labReceipt.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\opdReceipt.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -231,7 +248,6 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-multiselect.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
     <Content Include="Content\css\select2.png" />
     <Content Include="Content\custom.css" />
@@ -329,13 +345,14 @@
     <Content Include="Scripts\Labs\Management\lab_mgmt.js" />
     <Content Include="Scripts\Labs\Mapping\labMapping.js" />
     <Content Include="Scripts\Labs\Parms\labsParms.js" />
+    <Content Include="Scripts\Labs\Patient\PatientLabs.js" />
+    <Content Include="Scripts\Labs\Patient\PatientLabs_AddEdit.js" />
     <Content Include="Scripts\material-dashboard.js" />
     <Content Include="Scripts\material.min.js" />
     <Content Include="Scripts\OPD\addNew.js" />
     <Content Include="Scripts\OPD\listView.js" />
     <Content Include="Scripts\perfect-scrollbar.jquery.min.js" />
     <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\Utils\util.js" />
@@ -390,6 +407,17 @@
     <Content Include="DataSets\Opd.xsc">
       <DependentUpon>Opd.xsd</DependentUpon>
     </Content>
+    <Content Include="DataSets\labRecieptDataSet.xsc">
+      <DependentUpon>labRecieptDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\labRecieptDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>labRecieptDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSets\labRecieptDataSet.xss">
+      <DependentUpon>labRecieptDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="DataSets\Opd.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -408,6 +436,8 @@
     <Content Include="Views\Labs\LabManagement.cshtml" />
     <Content Include="Views\Labs\LabParms.cshtml" />
     <Content Include="Views\Labs\LabDetails.cshtml" />
+    <Content Include="Views\Labs\PatientLabs.cshtml" />
+    <Content Include="Views\Labs\PatientLabDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HmsServices\HmsServices.csproj">
@@ -416,6 +446,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\labReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>labReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\labReceipt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>labReceipt.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\opdReceipt.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>opdReceipt.cs</LastGenOutput>

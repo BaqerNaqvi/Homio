@@ -14,7 +14,7 @@
             <a class="navbar-brand" href="#"> Doctors List <div class="ripple-container"></div></a>
         </div>
         <div class="collapse navbar-collapse">
-            <form class="navbar-form navbar-right" role="search">
+            @*<form class="navbar-form navbar-right" role="search">
                 <div class="form-group is-empty">
                     <input type="text" class="form-control" placeholder="Search">
                     <span class="material-input"></span>
@@ -24,7 +24,7 @@
                     <i class="material-icons">search</i>
                     <div class="ripple-container"></div>
                 </button>
-            </form>
+            </form>*@
         </div>
     </div>
 </nav>
@@ -46,7 +46,7 @@
                                 <th>Degree</th>
                                 <th>Fee</th>
                                 <th>Active</th>
-                                <th>Joining Date</th>
+                                <th>Availability </th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -57,10 +57,11 @@
                                     foreach (var item in Model)
                                     {
                                         var status = item.Status ? "checked" : "";
+                                        var avaClass = item.IsAvailable ? "availableBulb" : "absentBulb";
                                         <tr>
                                             <td style="display: none">@item.Id</td>
                                             <td>@item.PMDCNo</td>
-                                            <td>@item.Title @item.FirstName&nbsp;@item.LastName</td>
+                                            <td><a href="~/Doctor/AddNewDoc?docId=@item.Id"> @item.Title @item.FirstName &nbsp;@item.LastName </a></td>
                                             <td>@item.Degree</td>
                                             <td>@item.Fee </td>
                                             <td>
@@ -70,7 +71,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>@item.CreationDateTime</td>
+                                            <td><i class="material-icons @avaClass">lightbulb_outline</i></td>
                                             <td title="Edit" class="cursorPointer editDoc" id="editDoc_@item.Id"><i class="material-icons">edit</i></td>
                                         </tr>
                                     }

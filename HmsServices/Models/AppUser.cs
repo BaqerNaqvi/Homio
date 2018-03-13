@@ -1,4 +1,6 @@
-﻿using HmsServices.DbContext;
+﻿using System;
+using System.Linq;
+using HmsServices.DbContext;
 
 namespace HmsServices.Models
 {
@@ -26,6 +28,9 @@ namespace HmsServices.Models
         public string ShiftDays { get; set; }
 
         public string PMDCNo { get; set; }
+
+        public bool IsAvailable { get; set; }
+
     }
 
     public class AppUserDoc_Dd
@@ -44,6 +49,14 @@ namespace HmsServices.Models
     {
         public static AppUserDoc MapToDoc(this AspNetUser source)
         {
+            var isAvailable = false;
+            if (!string.IsNullOrEmpty(source.ShiftDays))
+            {
+                string[] days = source.ShiftDays.Split(',');
+                var today = DateTime.Now.DayOfWeek;
+                isAvailable= days.Any(d => d.ToLower().Contains(today.ToString().ToLower()));
+            }
+
             return new AppUserDoc
             {
                 Id = source.Id,
@@ -59,17 +72,29 @@ namespace HmsServices.Models
                 ShiftDays = source.ShiftDays,
                 Title = source.Title,
                 Type = source.Type,
-                PMDCNo = source.PMDCNo
+                PMDCNo = source.PMDCNo,
+                IsAvailable = isAvailable
             };
         }
 
         public static AppUserDoc_Dd MapToDocDd(this AspNetUser source)
         {
+            string str ="";
+            if (!string.IsNullOrEmpty(source.ShiftDays))
+            {
+                string[] days = source.ShiftDays.Split(',');
+                var today = DateTime.Now.DayOfWeek;
+                var isAvailable = days.Any(d => d.ToLower().Contains(today.ToString().ToLower()));
+                if (isAvailable)
+                {
+                    str = "* ";
+                }
+            }
             return new AppUserDoc_Dd
             {
                 Id = source.Id,
                 Fee = source.Fee,
-                Name = source.FirstName+" "+source.LastName + " (" + source.Degree + ")",
+                Name = str + source.FirstName+" "+source.LastName + " (" + source.Degree + ")",
             };
         }
     }

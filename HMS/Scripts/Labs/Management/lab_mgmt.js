@@ -66,14 +66,39 @@ $('#addlab').click(function () {
     var server = {};
     server.Name = name;
     server.Fee = fee;
+    server.Id = labId;
     server.Interval = interval;
+    addUpdateItem(server);
 
+});
+
+function addUpdateItem(server) {
     $(".loading-docs").show();
-    postRequest(server, "AddNew", function (lab) {
+    postRequest(server, "AddUpdateTest", function (lab) {
         var row = paingLabListItem(lab);
-        $("#tableBody").prepend(row);
+      //  $("#tableBody").prepend(row);
         toastr.success("New Lab Test Added");
         $(".loading-docs").hide();
         $('#exampleModal').modal('toggle');
+        location.reload();
     });
-});
+}
+
+var labId = 0;
+function editTest(item) {
+    $("#labname").val(item.Name);
+    $("#labfee").val(item.Fee);
+    $("#labInterval").val(item.Interval);
+    $('#exampleModal').modal('toggle');
+    labId = item.Id;
+}
+
+function deleteTest(labId) {
+    $(".loading-docs").show();
+    postRequest({Id:labId}, "DeleteTest", function (lab) {
+       
+        toastr.success(" Lab Test Deleted");
+        $(".loading-docs").hide();
+        location.reload();
+    });
+}

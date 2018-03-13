@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Migrations;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,6 +76,44 @@ namespace HmsServices.OpdForms
         {
             using (var dbcontext = new HMSEntities())
             {
+                //dicount check
+
+                if(source.Discount!=null && source.Discount > 0)
+                {
+                    var doc= dbcontext.AspNetUsers.FirstOrDefault(docobj => docobj.Id == source.DoctorId);
+                    if(doc!=null && source.Discount > doc.Fee)
+                    {
+                        return null;
+                    }
+                }
+
+                if (source.Mode == "cusinfo")
+                {
+                    var patient = dbcontext.OPDs.FirstOrDefault(form => form.Id == source.Id);
+                    var allrecs = dbcontext.OPDs.Where(o => o.PatientNo == patient.PatientNo).ToList();
+                    if (allrecs.Any())
+                    {
+                        foreach (var dbOb in allrecs)
+                        {
+                            dbOb.Name = source.Name;
+                            dbOb.GuardianName = source.GuardianName;
+                            dbOb.Age = source.Age;
+                            dbOb.Gender = source.Gender;
+                            dbOb.CNIC = source.CNIC;
+                            dbOb.Address = source.Address;
+                            dbOb.Phone = source.Phone;
+                            dbOb.MartialStatus = source.MartialStatus;
+                            dbOb.Discount = source.Discount;
+                            dbOb.DiscountBy = source.DiscountBy;
+                            dbOb.InsuranceNo = source.InsuranceNo;
+                            dbcontext.OPDs.AddOrUpdate(dbOb);
+                        }
+                        dbcontext.SaveChanges();
+                        return GetOpdById(source.Id.ToString());
+                    }
+                }
+
+
                 var dbObj = dbcontext.OPDs.FirstOrDefault(form => form.Id == source.Id);
                 if (dbObj == null)
                 {
@@ -92,9 +132,36 @@ namespace HmsServices.OpdForms
                         Gender = source.Gender,
                         GuardianName = source.GuardianName,
                         Phone = source.Phone,
-                    };
+                        Status = true,
+                        InsuranceNo = source.InsuranceNo,
+                       Discount = source.Discount,
+                       DiscountBy = source.DiscountBy
+                };
                     dbcontext.OPDs.Add(dbObj);
                     dbcontext.SaveChanges();
+                    return GetOpdById(dbObj.Id.ToString());
+                }
+                else
+                {
+                    if (source.Mode == "edit")
+                    {
+                        dbObj.DoctorId = source.DoctorId;
+                        dbObj.Name = source.Name;
+                        dbObj.GuardianName = source.GuardianName;
+                        dbObj.Age = source.Age;
+                        dbObj.Gender = source.Gender;
+                        dbObj.CNIC = source.CNIC;
+                        dbObj.Address = source.Address;
+                        dbObj.Phone = source.Phone;
+                        dbObj.MartialStatus = source.MartialStatus;
+                        dbObj.Discount = source.Discount;
+                        dbObj.DiscountBy = source.DiscountBy;
+                        dbObj.InsuranceNo = source.InsuranceNo;
+
+                        dbcontext.OPDs.AddOrUpdate(dbObj);
+                        dbcontext.SaveChanges();
+                    }
+                   
                     return GetOpdById(dbObj.Id.ToString());
                 }
             }
@@ -132,7 +199,7 @@ namespace HmsServices.OpdForms
                 }
 
                 var itemsToSkip = response.Pagging.Current*response.Pagging.ItemPerPage;
-                var totalForms = forms.Select(fobj => fobj.MaptoOpd());
+                var totalForms = forms.Select(fobj => fobj.MaptoOpd()).OrderBy( o => o.VisitNo);
                 var actualForms= totalForms.Skip(itemsToSkip).Take(response.Pagging.ItemPerPage).ToList();
                 response.AppOpds = actualForms;
                 response.Pagging.TotalItems = totalForms.Count();
@@ -146,9 +213,33 @@ namespace HmsServices.OpdForms
         {            
             using (var dbContext = new HMSEntities())
             {
-                return dbContext.OPDs.FirstOrDefault(opd => opd.Id.ToString() == opdId).MaptoOpd();
+                var obj = dbContext.OPDs.FirstOrDefault(opd => opd.Id.ToString() == opdId).  MaptoOpd();
+
+                var allRec = dbContext.OPDs.Where(ap => ap.PatientNo == obj.PatientNo).ToList().Select( q=> q.MaptoOpd_Row());
+
+                return obj;
             }
         }
+
+
+        public static AppOpd_RowModelModel GetOpdByIdWithRows(string opdId)
+        {
+            using (var dbContext = new HMSEntities())
+            {
+                var obj = dbContext.OPDs.FirstOrDefault(opd => opd.Id.ToString() == opdId).MaptoOpd();
+                if (obj != null)
+                {
+                    var allRec = dbContext.OPDs.Where(ap => ap.PatientNo == obj.PatientNo).ToList().Select(q => q.MaptoOpd_Row()).ToList();
+                    return new AppOpd_RowModelModel
+                    {
+                        Opd = obj,
+                        Records = allRec
+                    };
+                }
+                return null;
+            }
+        }
+
 
         public static AppIp ConvertToIp(string opdId)
         {

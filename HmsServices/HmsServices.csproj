@@ -93,6 +93,15 @@
     <Compile Include="DbContext\OPD.cs">
       <DependentUpon>HmsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\PatientLab.cs">
+      <DependentUpon>HmsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PatientLabs_Labs.cs">
+      <DependentUpon>HmsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PatientLabs_Labs_Parms.cs">
+      <DependentUpon>HmsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\WardsRoom.cs">
       <DependentUpon>HmsModel.tt</DependentUpon>
     </Compile>
@@ -100,6 +109,8 @@
     <Compile Include="HmsEmailService.cs" />
     <Compile Include="IpForms\IpFormService.cs" />
     <Compile Include="Labs\LabService.cs" />
+    <Compile Include="Models\AddLabToPatientResponseModel.cs" />
+    <Compile Include="Models\AddNewPatientAndLabsRequestModel.cs" />
     <Compile Include="Models\AppIp.cs" />
     <Compile Include="Models\AppLab_mapping.cs" />
     <Compile Include="Models\AppLab_Parm.cs" />
@@ -107,6 +118,10 @@
     <Compile Include="Models\AppOpd.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\AppWardsRoom.cs" />
+    <Compile Include="Models\App_PatientLab.cs" />
+    <Compile Include="Models\App_PatientLabs_Labs.cs" />
+    <Compile Include="Models\App_PatientLabs_Labs_Parms.cs" />
+    <Compile Include="Models\CreateMixReportModel.cs" />
     <Compile Include="Models\OpdFormMetaRequestModel.cs" />
     <Compile Include="Models\OpdResponseModel.cs" />
     <Compile Include="Models\SearchModel.cs" />

@@ -8,3 +8,13 @@ D:\Work\Projects\HMS\HmsServices\bin\Release\EntityFramework.SqlServer.xml
 D:\Work\Projects\HMS\HmsServices\obj\Release\HmsServices.csprojResolveAssemblyReference.cache
 D:\Work\Projects\HMS\HmsServices\obj\Release\HmsServices.dll
 D:\Work\Projects\HMS\HmsServices\obj\Release\HmsServices.pdb
+D:\Work\Projects\Homio\HmsServices\bin\Release\HmsServices.dll.config
+D:\Work\Projects\Homio\HmsServices\bin\Release\HmsServices.dll
+D:\Work\Projects\Homio\HmsServices\bin\Release\HmsServices.pdb
+D:\Work\Projects\Homio\HmsServices\bin\Release\EntityFramework.dll
+D:\Work\Projects\Homio\HmsServices\bin\Release\EntityFramework.SqlServer.dll
+D:\Work\Projects\Homio\HmsServices\bin\Release\EntityFramework.xml
+D:\Work\Projects\Homio\HmsServices\bin\Release\EntityFramework.SqlServer.xml
+D:\Work\Projects\Homio\HmsServices\obj\Release\HmsServices.csprojResolveAssemblyReference.cache
+D:\Work\Projects\Homio\HmsServices\obj\Release\HmsServices.dll
+D:\Work\Projects\Homio\HmsServices\obj\Release\HmsServices.pdb

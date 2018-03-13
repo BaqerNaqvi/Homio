@@ -27,9 +27,16 @@ function login() {
         return;
     }
     $(".loading-wheel").show();
+
+    var d = new Date();
+    var timezoneOffset = d.getTimezoneOffset();
+
     var server = {};
     server.Email = usaername;
     server.Password = password;
+    server.TimeZoonOfset = timezoneOffset;
+
+
     postRequest(server, "login", function (data) {
         if (data.Success) {
             window.location.href = "../home/index";

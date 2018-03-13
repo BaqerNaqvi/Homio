@@ -37,7 +37,20 @@ namespace HMS.Controllers
         {
             var dataModel = new OpdPageModel
             {
-                DoctorList = DocService.GetAllDocsForDd()
+                DoctorList = DocService.GetAllDocsForDd(),
+                CreatedOpdForm = new AppOpd
+                {
+                    DateTime = " ",
+                    VisitNo = 1,
+                    PatientNo = " ",
+                    Name=" ",
+                    GuardianName=" ",
+                    CNIC=" ",
+                    Address=" ",
+                    Phone=" ",
+                    InsuranceNo=" "
+                },
+                Mode = "new"
             };
             return View(dataModel);
         }
@@ -61,38 +74,29 @@ namespace HMS.Controllers
         }
 
 
-        private String readHtmlPage(string url)
+        public ActionResult GetOpdFormById(string opdId, string mode )
         {
-            String result = "";
-            String message = HttpUtility.UrlEncode("Hey Irfan\nThis is alert message from kamsham.pk");
-            String strPost = "id=test11&pass=pakistan89&msg=" + message +
-                             "&to=923084449991" + "&mask=SMS4CONNECT&type=xml&lang=English";
-            StreamWriter myWriter = null;
-            HttpWebRequest objRequest = (HttpWebRequest) WebRequest.Create(url);
-            objRequest.Method = "POST";
-            objRequest.ContentLength = Encoding.UTF8.GetByteCount(strPost);
-            objRequest.ContentType = "application/x-www-form-urlencoded";
-            try
+            var allRecWithOpd=OpdService.GetOpdByIdWithRows(opdId);
+            if(mode== "recreate")
             {
-                myWriter = new StreamWriter(objRequest.GetRequestStream());
-                myWriter.Write(strPost);
+                allRecWithOpd.Opd.VisitNo = allRecWithOpd.Records.Count + 1;
+                allRecWithOpd.Opd.DoctorId = "0";
+                allRecWithOpd.Opd.Discount = 0;
+                allRecWithOpd.Opd.DiscountBy = " ";
+                allRecWithOpd.Opd.DocFee = 0;
+                allRecWithOpd.Opd.DateTime = DateTime.Now.ToLongTimeString();
+                allRecWithOpd.Opd.Id = 0;
             }
-            catch (Exception e)
+            var dataModel = new OpdPageModel
             {
-                return e.Message;
-            }
-            finally
-            {
-                myWriter.Close();
-            }
-            HttpWebResponse objResponse = (HttpWebResponse) objRequest.GetResponse();
-            using (StreamReader sr = new StreamReader(objResponse.GetResponseStream()))
-            {
-                result = sr.ReadToEnd();
-                // Close and clean up the StreamReader
-                sr.Close();
-            }
-            return result;
+               CreatedOpdForm = allRecWithOpd?.Opd,
+               Mode = mode,
+               DoctorList = DocService.GetAllDocsForDd(),
+               Records= allRecWithOpd?.Records
+            };
+            //recreate
+            return View("OpdpForms", dataModel);
         }
+
     }
 }

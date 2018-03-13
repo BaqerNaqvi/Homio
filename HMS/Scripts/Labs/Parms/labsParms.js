@@ -62,11 +62,13 @@ $('#addlab').click(function () {
     var name = $('#labname').val();
     var unit = $('#labUnit').val();
     var normal = $('#range').val();
+    var price = $('#labprice').val();
 
     var server = {};
     server.Name = name;
     server.Unit = unit;
     server.NormarVal = normal;
+    server.Price = price;
     server.Id = itemId;
 
     $(".loading-docs").show();
@@ -90,6 +92,7 @@ function editParm(item) {
     $('#labname').val(item.Name);
     $('#labUnit').val(item.Unit);
     $('#range').val(item.NormarVal);
+    $('#labprice').val(item.Price);
     itemId = item.Id;
 }
 
@@ -97,3 +100,4 @@ $('#createNewTest').click(function() {
     itemId = 0;
     $('.labcls').val('');
 });
+

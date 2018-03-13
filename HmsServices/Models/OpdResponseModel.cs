@@ -25,6 +25,12 @@ namespace HmsServices.Models
         public PaggingModel Pagging { get; set; }
     }
 
+    public class GetPatientWithLabsResponseModel
+    {
+        public List<App_PatientLab> PatientWithLabs { get; set; }
+        public PaggingModel Pagging { get; set; }
+    }
+
     public class LabParmsResponseModel
     {
         public List<AppLab_Parm> LabParms { get; set; }
@@ -34,6 +40,11 @@ namespace HmsServices.Models
     public class LabParmsResponseModelDd
     {
         public List<AppLab_ParmDd> LabParms { get; set; }
+    }
+
+    public class LabTestResponseModelDd
+    {
+        public List<AppLab_TestDd> LabTests { get; set; }
     }
 
     public class LabMappingResponseModel

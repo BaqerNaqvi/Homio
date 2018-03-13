@@ -42,14 +42,17 @@
                         <table class="table">
                             <thead class="text-primary">
                             <tr>
-                                <th>MR No.</th>
-                                <th>Daily No.</th>
+                                <th> &nbsp; </th>
+                                <th>MR (Patient) No.</th>
+                                <th>Visit No.</th>
                                 <th>Name</th>
                                 <th>Doctor</th>
                                 <th>Date</th>
-                                <th>Phone</th>
-                                <th></th>
+                                <th>Print</th>
+                                <th>Edit</th>
 
+                                <th>To IP</th>
+                                <th>Labs</th>
                             </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -58,16 +61,39 @@
                                 {
                                     foreach (var item in Model.AppOpds.ToList())
                                     {
+                                        var u = "/Home/GetOpdFormById?opdId="+ item.Id+ "&mode=cusinfo";
+
+                                        var edit = "/Home/GetOpdFormById?opdId=" + item.Id + "&mode=edit";
+
+                                        var newRec = "/Home/GetOpdFormById?opdId=" + item.Id + "&mode=recreate";
                                         <tr>
+                                            <td title="Add New" class="cursorPointer">
+                                                <a href="@newRec"><i class="material-icons">add_circle_outline</i></a>
+                                            </td>
+
                                             <td>@item.PatientNo</td>
-                                            <td>@item.DailyNo</td>
-                                            <td>@item.Name</td>
+                                            <td>@item.VisitNo</td>
+                                            <td><a href="@u">@item.Name</a></td>
                                             <td>@item.DocName (@item.Degree)</td>
                                             <td class="text-primary">@item.DateTime</td>
-                                            <td>@item.Phone</td>
+                                            <td>
+                                                <a href="~/Print/PrintOpdSlip?opdId=@item.Id" class="icon-hand">
+                                                    <i title="Print" class="material-icons">printer</i>
+                                                </a>
+                                            </td>
+                                            <td title="Edit" class="cursorPointer" >
+                                               <a href="@edit"><i class="material-icons">edit</i></a>
+                                            </td>
+
                                             <td>
                                                 <a href="~/IpForms/CreateIpForm?opdId=@item.Id" class="icon-hand">
                                                     <i title="Convert" class="material-icons">subdirectory_arrow_right</i>
+                                                </a>
+                                            </td>
+
+                                            <td>
+                                                <a href="~/Labs/CreateLabFromOpd?opdId=@item.Id" class="icon-hand">
+                                                    <i title="Convert" class="material-icons">invert_colors</i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -105,29 +131,58 @@
     });
 
     $("#searchField").keyup(function() {
+        debugger;
         pagging.Current = 0;
         pagging.TotalItems = 0;
         getOpdForms();
     });
 
     function getOpdForms() {
-        var url = "/IpForms/CreateIpForm";        
+        var url = "/IpForms/CreateIpForm";
+        var urlToPrinter = "/Print/PrintOpdSlip";
+        var u = "/Home/GetOpdFormById";
 
+        var urlToLabs = "/Labs/CreateLabFromOpd";
+
+        var urlTohit = "home/searchopdforms";
+        if(location.href.toLocaleLowerCase().indexOf("home")>0){
+            urlTohit = "searchopdforms"
+        }
+
+       
         $(".loading-docs").show();
         var term = $("#searchField").val();
-        postRequest({ SearchString: term, Pagging: pagging }, "SearchOpdForms", function(serverData) {
+        postRequest({ SearchString: term, Pagging: pagging }, urlTohit, function(serverData) {
             $("#paggingDiv").pagination('updateItems', serverData.Pagging.TotalItems);
             var items = serverData.AppOpds;
             var html = "";
             for (var i = 0; i < items.length; i++) {
-                var row = "<tr>"+"<td>"+items[i].PatientNo+"</td>"+
-                                            "<td>"+items[i].DailyNo+"</td>"+
-                                            "<td>"+items[i].Name+"</td>"+
+                var row = "<tr>"+
+                "<td>"+
+                    "<a href='"+u+"?opdId="+ items[i].Id+"&mode=recreate'>"+
+                          "<i title='Convert' class='material-icons'>add_circle_outline</i>"+
+                       "</a>"+
+                     "</td>"+                
+                    "<td>"+items[i].PatientNo+"</td>"+
+                                            "<td>"+items[i].VisitNo+"</td>"+
+                                            "<td><a href='"+u+"?opdId="+ items[i].Id+"&mode=cusinfo'>"+items[i].Name+"</a></td>"+
                                             "<td>"+items[i].DocName+" ("+items[i].Degree+")</td>"+
                                             "<td class='text-primary'>"+items[i].DateTime+"</td>"+
-                                            "<td>"+items[i].Phone+"</td>"+
+                                            "<td>"+
+                                                "<a href='"+urlToPrinter+"?opdId="+items[i].Id+"'>"+
+                                                    "<i title='Convert' class='material-icons'>printer</i>"+
+                                                "</a>"+
+                                                "</td>"+
+                                                 "<td title='Edit' class='cursorPointer' >"+
+                                                 "<a href='"+u+"?opdId="+ items[i].Id+"&mode=edit'><i class='material-icons'>edit</i></a>"+
+                                            "</td>"+
                                             "<td>"+
                                                 "<a href='"+url+"?opdId="+items[i].Id+"'>"+
+                                                    "<i title='Convert' class='material-icons'>subdirectory_arrow_right</i>"+
+                                                "</a>"+
+                                            "</td>"+
+                                             "<td>"+
+                                                "<a href='"+urlToLabs+"?opdId="+items[i].Id+"'>"+
                                                     "<i title='Convert' class='material-icons'>subdirectory_arrow_right</i>"+
                                                 "</a>"+
                                             "</td>"+

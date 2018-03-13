@@ -49,6 +49,7 @@
                                 <th>Status</th>
 
                                 <th></th>
+                                <th></th>
 
                             </tr>
                             </thead>
@@ -71,7 +72,11 @@
                                                 </div>
                                             </td>
                                             <td title="Edit" onclick="editTest(@Json.Encode(item))" class="cursorPointer editlab" id="editLab_@item.Id"><i class="material-icons">edit</i></td>
-
+                                            <td>
+                                                <button value="Remove" onclick="deleteTest(@Json.Encode(item.Id))" class="form-control btn btn-danger">
+                                                    Remove
+                                                </button>
+                                            </td>
                                         </tr>
                                     }
                                 }
@@ -85,6 +90,13 @@
                 <button id="createNewTest" type="submit" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
                     Add New Test
                     <div class="ripple-container"></div>
+                </button>
+
+                <button type="submit" class="btn btn-primary pull-right"  onClick="(function(){
+    window.location='/Labs/LabParms';
+    return false;
+})();return false;">
+                    View All Parameters  
                 </button>
                 <img src="~/Images/loading.gif" class="pull-right loading-docs displayNone"/>
 

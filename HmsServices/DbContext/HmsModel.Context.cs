@@ -28,12 +28,15 @@ namespace HmsServices.DbContext
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<OPD> OPDs { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<WardsRoom> WardsRooms { get; set; }
         public virtual DbSet<IpForm> IpForms { get; set; }
         public virtual DbSet<Lab_Mapping> Lab_Mapping { get; set; }
         public virtual DbSet<Lab_Parms> Lab_Parms { get; set; }
         public virtual DbSet<Lab_Tests> Lab_Tests { get; set; }
+        public virtual DbSet<OPD> OPDs { get; set; }
+        public virtual DbSet<WardsRoom> WardsRooms { get; set; }
+        public virtual DbSet<PatientLab> PatientLabs { get; set; }
+        public virtual DbSet<PatientLabs_Labs> PatientLabs_Labs { get; set; }
+        public virtual DbSet<PatientLabs_Labs_Parms> PatientLabs_Labs_Parms { get; set; }
     }
 }

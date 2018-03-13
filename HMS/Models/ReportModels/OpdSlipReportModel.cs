@@ -19,4 +19,17 @@ namespace HMS.Models.ReportModels
 
         public int VisitNo { get; set; }
     }
+
+
+    public class LabSlipReportModel
+    {
+        public string FullName { get; set; }
+        public string DateTime { get; set; }
+        public int Amount { get; set; }
+        
+        public string Id { get; set;
+        }      
+        public string RecievedBy { get; set; }
+      
+    }
 }

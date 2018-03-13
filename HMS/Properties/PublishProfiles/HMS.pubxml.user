@@ -73,10 +73,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/HMS.dll">
-      <publishTime>01/09/2018 13:51:05</publishTime>
+      <publishTime>02/25/2018 23:05:32</publishTime>
     </File>
     <File Include="bin/HmsServices.dll">
-      <publishTime>01/09/2018 13:51:00</publishTime>
+      <publishTime>02/25/2018 23:05:26</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>11/30/2016 16:07:42</publishTime>
@@ -216,8 +216,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/bootstrap.min.css">
       <publishTime>10/13/2017 03:00:20</publishTime>
     </File>
+    <File Include="Content/css/select2.css">
+      <publishTime>01/17/2018 03:52:00</publishTime>
+    </File>
+    <File Include="Content/css/select2.min.css">
+      <publishTime>02/05/2018 01:41:43</publishTime>
+    </File>
+    <File Include="Content/css/select2.png">
+      <publishTime>01/17/2018 03:47:25</publishTime>
+    </File>
     <File Include="Content/custom.css">
-      <publishTime>01/04/2018 01:49:36</publishTime>
+      <publishTime>02/18/2018 23:34:38</publishTime>
     </File>
     <File Include="Content/demo.css">
       <publishTime>10/13/2017 03:02:53</publishTime>
@@ -233,6 +242,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/toastr.css">
       <publishTime>10/16/2017 01:33:04</publishTime>
+    </File>
+    <File Include="DataSets/labRecieptDataSet.xsc">
+      <publishTime>02/25/2018 00:28:19</publishTime>
+    </File>
+    <File Include="DataSets/labRecieptDataSet.xss">
+      <publishTime>02/25/2018 00:28:19</publishTime>
     </File>
     <File Include="DataSets/Opd.xsc">
       <publishTime>12/13/2017 01:11:45</publishTime>
@@ -289,7 +304,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/13/2017 03:09:29</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>10/15/2017 23:18:19</publishTime>
+      <publishTime>02/05/2018 01:34:54</publishTime>
     </File>
     <File Include="Rotativa/help-wkhtmltoimage.txt">
       <publishTime>10/15/2017 23:18:19</publishTime>
@@ -304,7 +319,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/15/2017 23:18:18</publishTime>
     </File>
     <File Include="Scripts/Accounts/index-login.js">
-      <publishTime>10/26/2017 01:37:35</publishTime>
+      <publishTime>01/31/2018 17:55:46</publishTime>
     </File>
     <File Include="Scripts/arrive.min.js">
       <publishTime>10/13/2017 03:06:20</publishTime>
@@ -327,8 +342,170 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/Docs/HmsDocs.js">
       <publishTime>01/04/2018 03:26:02</publishTime>
     </File>
+    <File Include="Scripts/i18n/af.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ar.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/az.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/bg.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/bs.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ca.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/cs.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/da.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/de.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/dsb.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/el.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/en.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/es.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/et.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/eu.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/fa.js">
+      <publishTime>02/05/2018 01:34:54</publishTime>
+    </File>
+    <File Include="Scripts/i18n/fi.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/fr.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/gl.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/he.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hi.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hr.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hsb.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hu.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hy.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/id.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/is.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/it.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ja.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/km.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ko.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/lt.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/lv.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/mk.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ms.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/nb.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/nl.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/pl.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ps.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/pt-BR.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/pt.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ro.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ru.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sk.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sl.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sr-Cyrl.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sr.js">
+      <publishTime>02/05/2018 01:34:53</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sv.js">
+      <publishTime>02/05/2018 01:34:52</publishTime>
+    </File>
+    <File Include="Scripts/i18n/th.js">
+      <publishTime>02/05/2018 01:34:52</publishTime>
+    </File>
+    <File Include="Scripts/i18n/tr.js">
+      <publishTime>02/05/2018 01:34:52</publishTime>
+    </File>
+    <File Include="Scripts/i18n/uk.js">
+      <publishTime>02/05/2018 01:34:52</publishTime>
+    </File>
+    <File Include="Scripts/i18n/vi.js">
+      <publishTime>02/05/2018 01:34:52</publishTime>
+    </File>
+    <File Include="Scripts/i18n/zh-CN.js">
+      <publishTime>02/05/2018 01:34:52</publishTime>
+    </File>
+    <File Include="Scripts/i18n/zh-TW.js">
+      <publishTime>02/05/2018 01:34:52</publishTime>
+    </File>
     <File Include="Scripts/IP/ipFormaddNew.js">
-      <publishTime>01/04/2018 02:59:36</publishTime>
+      <publishTime>02/13/2018 02:58:51</publishTime>
     </File>
     <File Include="Scripts/IP/ipFormList.js">
       <publishTime>12/06/2017 03:39:34</publishTime>
@@ -343,7 +520,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/26/2017 19:44:32</publishTime>
     </File>
     <File Include="Scripts/Labs/Management/lab_mgmt.js">
-      <publishTime>01/04/2018 02:33:08</publishTime>
+      <publishTime>02/07/2018 00:21:17</publishTime>
+    </File>
+    <File Include="Scripts/Labs/Mapping/labMapping.js">
+      <publishTime>02/06/2018 00:35:42</publishTime>
+    </File>
+    <File Include="Scripts/Labs/Parms/labsParms.js">
+      <publishTime>02/05/2018 00:19:00</publishTime>
+    </File>
+    <File Include="Scripts/Labs/Patient/PatientLabs.js">
+      <publishTime>02/25/2018 03:06:02</publishTime>
+    </File>
+    <File Include="Scripts/Labs/Patient/PatientLabs_AddEdit.js">
+      <publishTime>02/25/2018 12:33:48</publishTime>
     </File>
     <File Include="Scripts/material-dashboard.js">
       <publishTime>10/17/2017 22:38:14</publishTime>
@@ -352,13 +541,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/13/2017 03:06:23</publishTime>
     </File>
     <File Include="Scripts/OPD/addNew.js">
-      <publishTime>12/20/2017 19:25:46</publishTime>
+      <publishTime>02/25/2018 11:28:17</publishTime>
     </File>
     <File Include="Scripts/OPD/listView.js">
       <publishTime>10/13/2017 06:40:37</publishTime>
     </File>
     <File Include="Scripts/perfect-scrollbar.jquery.min.js">
       <publishTime>10/13/2017 03:06:23</publishTime>
+    </File>
+    <File Include="Scripts/select2.js">
+      <publishTime>02/05/2018 01:52:37</publishTime>
+    </File>
+    <File Include="Scripts/select2.min.js">
+      <publishTime>01/17/2018 03:17:13</publishTime>
     </File>
     <File Include="Scripts/toastr.js">
       <publishTime>10/13/2017 01:43:23</publishTime>
@@ -385,7 +580,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/07/2017 22:11:14</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>10/26/2017 00:09:37</publishTime>
+      <publishTime>02/03/2018 23:52:28</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
       <publishTime>10/15/2017 23:20:10</publishTime>
@@ -406,10 +601,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/07/2017 22:11:14</publishTime>
     </File>
     <File Include="Views/Doctor/AddNewDoc.cshtml">
-      <publishTime>01/04/2018 03:11:27</publishTime>
+      <publishTime>02/03/2018 23:54:36</publishTime>
     </File>
     <File Include="Views/Doctor/ListOfDocs.cshtml">
-      <publishTime>01/04/2018 03:30:48</publishTime>
+      <publishTime>02/03/2018 23:49:51</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>10/07/2017 22:11:00</publishTime>
@@ -418,19 +613,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/07/2017 22:11:00</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/04/2018 03:33:36</publishTime>
+      <publishTime>02/23/2018 00:40:39</publishTime>
     </File>
     <File Include="Views/Home/OpdpForms.cshtml">
-      <publishTime>01/04/2018 02:48:58</publishTime>
+      <publishTime>02/25/2018 22:35:46</publishTime>
     </File>
     <File Include="Views/IPForms/CreateIpForm.cshtml">
-      <publishTime>01/04/2018 02:55:43</publishTime>
+      <publishTime>02/13/2018 02:50:21</publishTime>
     </File>
     <File Include="Views/IPForms/IpFormsList.cshtml">
       <publishTime>01/04/2018 03:36:35</publishTime>
     </File>
+    <File Include="Views/Labs/LabDetails.cshtml">
+      <publishTime>02/23/2018 04:08:18</publishTime>
+    </File>
     <File Include="Views/Labs/LabManagement.cshtml">
-      <publishTime>01/04/2018 02:29:58</publishTime>
+      <publishTime>02/07/2018 00:18:12</publishTime>
+    </File>
+    <File Include="Views/Labs/LabParms.cshtml">
+      <publishTime>01/17/2018 23:35:00</publishTime>
+    </File>
+    <File Include="Views/Labs/PatientLabDetails.cshtml">
+      <publishTime>02/25/2018 12:43:27</publishTime>
+    </File>
+    <File Include="Views/Labs/PatientLabs.cshtml">
+      <publishTime>02/25/2018 03:02:35</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>10/07/2017 22:11:14</publishTime>
@@ -457,7 +664,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/07/2017 22:11:14</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>01/04/2018 02:46:54</publishTime>
+      <publishTime>02/19/2018 22:55:24</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>10/07/2017 22:11:14</publishTime>
@@ -469,7 +676,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/07/2017 22:11:00</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/09/2018 13:51:06</publishTime>
+      <publishTime>02/25/2018 23:05:32</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -45,6 +45,7 @@
                                 <tr>
                                     <th>Parameter No.</th>
                                     <th>Name</th>
+                                    <th>Price</th>
                                     <th>Unit</th>
                                     <th>Range</th>
                                     <th>Status</th>
@@ -63,6 +64,7 @@
                                             <tr>
                                                 <td>@item.Id</td>
                                                 <td id='name_@item.Id'>@item.Name</td>
+                                                <td id='name_@item.Id'>@item.Price</td>
                                                 <td id='unit_@item.Id'>@item.Unit</td>
                                                 <td id='norm_@item.Id'>@item.NormarVal</td>
                                                 <td>
@@ -108,6 +110,11 @@
                         <div class="form-group">
                             <label for="labname" class="form-control-label">Name</label>
                             <input type="text" class="form-control labcls" id="labname">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="labname" class="form-control-label">Price</label>
+                            <input type="text" class="form-control" id="labprice">
                         </div>
                         <div class="form-group">
                             <label for="labUnit" class="form-control-label">Unit</label>

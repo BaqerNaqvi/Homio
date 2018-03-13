@@ -31,6 +31,8 @@ namespace HmsServices.DbContext
         public string BloodGroup { get; set; }
         public Nullable<long> OpdId { get; set; }
         public int AdmissionFee { get; set; }
+        public Nullable<int> Discount { get; set; }
+        public string DiscountBy { get; set; }
     
         public virtual AspNetUser Doctor { get; set; }
     }

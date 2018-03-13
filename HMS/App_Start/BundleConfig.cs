@@ -61,6 +61,15 @@ namespace HMS
              "~/Scripts/Labs/Mapping/labMapping.js",
              "~/Scripts/select2.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/PatientLabs").Include(
+             "~/Scripts/Labs/Patient/PatientLabs.js",
+             "~/Scripts/jquery.simplePagination.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/PatientLabs_AddEdit").Include(
+            "~/Scripts/Labs/Patient/PatientLabs_AddEdit.js",
+             "~/Scripts/select2.js",
+             "~/Scripts/jquery-mask.min.js"));
+
             //Cascading Style sheets 
 
             bundles.Add(new StyleBundle("~/Content/loginCss").Include(
@@ -89,7 +98,13 @@ namespace HMS
                  "~/Content/simplePagination.css"));
 
             bundles.Add(new StyleBundle("~/Content/LabParmsMapping").Include(
-                "~/Content/css/select2.css"));
+                "~/Content/css/select2.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/PatientLabsCss").Include(
+              "~/Content/simplePagination.css"));
+
+            bundles.Add(new StyleBundle("~/Content/PatientLabs_AddEdit").Include(
+              "~/Content/css/select2.min.css"));
         }
     }
 }

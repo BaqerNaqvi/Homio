@@ -28,6 +28,10 @@ namespace HmsServices.DbContext
         public Nullable<int> VisitNo { get; set; }
         public string DoctorId { get; set; }
         public bool MartialStatus { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public Nullable<int> Discount { get; set; }
+        public string DiscountBy { get; set; }
+        public string InsuranceNo { get; set; }
     
         public virtual AspNetUser Doctor { get; set; }
     }
